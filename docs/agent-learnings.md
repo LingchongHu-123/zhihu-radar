@@ -36,6 +36,29 @@ a session, and **append to it** after resolving anything non-trivial.
 
 <!-- New entries go below this line, most recent first. -->
 
+### 2026-04-22 — 知乎 /api/v4 is gated by x-zse-96; use SSR HTML instead
+**Context:** Phase A fixture capture. Script hit
+`GET https://www.zhihu.com/api/v4/questions/<id>/answers?...` with a valid
+session cookie (`z_c0` etc, 1211 chars).
+**Symptom:** `403 Forbidden`, body
+`{"error":{"message":"您当前请求存在异常，暂时限制本次访问...","code":40362}}`.
+Happens on the first request, so it's not rate-limiting.
+**Root cause:** 知乎's web client signs every `/api/v4/...` request with an
+`x-zse-96` header computed by obfuscated JS (tied to `d_c0` cookie, path,
+and body via a rotating HMAC-like scheme). Requests missing that header
+— even authenticated ones — are rejected with 40362. Cookie alone is not
+sufficient.
+**Fix:** switched source strategy to scraping the SSR HTML at
+`https://www.zhihu.com/question/<id>` and parsing the
+`<script id="js-initialData" type="text/json">...</script>` blob. The JSON
+contains `initialState.entities.{answers,questions,users,comments,...}`
+with the same entity shapes the API would have returned (camelCase there,
+snake_case on the API). No signature needed. See ADR 003.
+**Keep in mind:** don't try to "reverse" x-zse-96 — community
+implementations break every few months when 知乎 rotates the algorithm,
+and attempting it is a signing-reversal task that's worth its own ADR
+before you touch it. HTML SSR is the least-galaxy-brained path.
+
 ### 2026-04-22 — after moving the project folder, reinstall deps
 **Context:** repo was moved with `mv` from one parent directory to another.
 `pnpm check` had been green before the move.
