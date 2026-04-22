@@ -24,6 +24,9 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
+# claude code user-local overrides (settings.json is shared policy and committed)
+.claude/settings.local.json
+
 # test output
 coverage/
 .vitest-cache/
