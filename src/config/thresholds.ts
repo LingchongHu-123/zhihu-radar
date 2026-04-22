@@ -1,0 +1,48 @@
+// Numeric thresholds that gate what validators/ accepts, what outputs/
+// shows, and how processors/ budgets its work. Centralized so we can
+// twiddle one number and feel the whole pipeline shift without a hunt.
+//
+// Each constant is named after what it gates, not what it compares against.
+// "MIN_UPVOTES_FOR_ANALYSIS" says *why* the number exists; a generic
+// "MIN_UPVOTES" would not.
+
+/**
+ * Answers with fewer upvotes than this are discarded before we spend Claude
+ * tokens on them. Set low — in study-abroad topics, useful answers often
+ * have modest upvote counts.
+ */
+export const MIN_UPVOTES_FOR_ANALYSIS = 5;
+
+/**
+ * Answer bodies shorter than this (in chars) are almost always low-quality
+ * one-liners or image-only posts we can't analyze usefully.
+ */
+export const MIN_BODY_CHARS_FOR_ANALYSIS = 50;
+
+/**
+ * Answers older than this are excluded from daily reports. 知乎 surfaces
+ * evergreen content, but buying intent expressed two years ago is not a
+ * signal that someone is trying to buy *now*.
+ */
+export const MAX_ANSWER_AGE_DAYS = 365;
+
+/**
+ * Per-topic evidence cap in the report: the top N analyzed answers,
+ * ranked by signal density, are embedded in the topic ranking. More than
+ * that and reports become unreadable; fewer and the ranking feels arbitrary.
+ */
+export const TOP_ANSWERS_PER_TOPIC_IN_REPORT = 5;
+
+/**
+ * Global cap on how many topics appear in a single daily report. Prevents
+ * the long tail from drowning the signal — if topic #40 matters, it will
+ * climb on its own over a few days.
+ */
+export const MAX_TOPICS_PER_REPORT = 20;
+
+/**
+ * Guard for the density calculation: answers with combined body+comment
+ * text shorter than this contribute 0 to signal density, avoiding the
+ * "one match in a 10-char comment = infinity density" pathology.
+ */
+export const MIN_CHARS_FOR_DENSITY = 100;
