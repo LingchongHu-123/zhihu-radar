@@ -90,6 +90,8 @@ before delegating if you haven't used it before.
 
 - `docs/architecture.md` — full rationale for the layering.
 - `docs/decisions/` — ADRs. Read before changing architectural shape.
+- `docs/exec-plans/active/` — in-progress work. **Read before starting
+  non-trivial work** so you don't collide with a plan already in motion.
 - `docs/agent-learnings.md` — accumulated gotchas from prior sessions.
 - `.dependency-cruiser.cjs` — mechanical rules with inline comments.
 - `.claude/agents/` — subagent definitions (see above).
