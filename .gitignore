@@ -1,0 +1,29 @@
+# deps & build
+node_modules/
+dist/
+*.tsbuildinfo
+
+# env & secrets
+.env
+.env.*
+!.env.example
+
+# data (raw scrapes & processed artifacts stay local; final reports are
+# committed selectively when we want to preserve a dated snapshot)
+data/raw/
+data/processed/
+
+# logs / debug
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor / os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# test output
+coverage/
+.vitest-cache/
