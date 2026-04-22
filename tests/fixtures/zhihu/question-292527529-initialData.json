@@ -1,0 +1,1918 @@
+{
+  "initialState": {
+    "common": {
+      "ask": {},
+      "cities": {
+        "cityData": []
+      }
+    },
+    "loading": {
+      "global": {
+        "count": 0
+      },
+      "local": {
+        "question/get/": false,
+        "question/getAnswers/292527529": false
+      }
+    },
+    "entities": {
+      "users": {},
+      "questions": {
+        "292527529": {
+          "type": "question",
+          "title": "出国留学中介靠谱的都有哪些（前十名）？",
+          "questionType": "normal",
+          "created": 1535530429,
+          "updatedTime": 1597705765,
+          "url": "https://www.zhihu.com/api/v4/questions/292527529",
+          "isMuted": false,
+          "isVisible": true,
+          "isNormal": true,
+          "isEditable": false,
+          "adminClosedComment": false,
+          "hasPublishingDraft": false,
+          "answerCount": 415,
+          "visitCount": 2625247,
+          "commentCount": 12,
+          "followerCount": 1038,
+          "collapsedAnswerCount": 28,
+          "excerpt": "个人比较看重机构顾问老师是否认真负责",
+          "commentPermission": "all",
+          "detail": "<p>个人比较看重机构顾问老师是否认真负责</p>",
+          "editableDetail": "<p>个人比较看重机构顾问老师是否认真负责</p>",
+          "status": {
+            "isLocked": false,
+            "isClose": false,
+            "isEvaluate": false,
+            "isSuggest": false
+          },
+          "topics": [
+            {
+              "id": "19551147",
+              "type": "topic",
+              "url": "https://www.zhihu.com/api/v4/topics/19551147",
+              "name": "user-15d208d1",
+              "avatarUrl": "",
+              "topicType": "NORMAL"
+            },
+            {
+              "id": "19554151",
+              "type": "topic",
+              "url": "https://www.zhihu.com/api/v4/topics/19554151",
+              "name": "user-250ae081",
+              "avatarUrl": "",
+              "topicType": "NORMAL"
+            },
+            {
+              "id": "19556895",
+              "type": "topic",
+              "url": "https://www.zhihu.com/api/v4/topics/19556895",
+              "name": "user-8289e67d",
+              "avatarUrl": "https://picx.zhimg.com/v2-f94b3093434c09b4501b056d142025e0_qhd.jpg?source=57bbeac9",
+              "topicType": "NORMAL"
+            },
+            {
+              "id": "19559937",
+              "type": "topic",
+              "url": "https://www.zhihu.com/api/v4/topics/19559937",
+              "name": "user-3a036c64",
+              "avatarUrl": "https://pic1.zhimg.com/v2-cf62f199661bce7e10a7ce293d3de913_qhd.jpg?source=57bbeac9",
+              "topicType": "NORMAL"
+            },
+            {
+              "id": "19617871",
+              "type": "topic",
+              "url": "https://www.zhihu.com/api/v4/topics/19617871",
+              "name": "user-a2f2e23d",
+              "avatarUrl": "",
+              "topicType": "NORMAL"
+            }
+          ],
+          "author": {
+            "id": "0",
+            "urlToken": "",
+            "name": "user-dbb89159",
+            "avatarUrl": "https://picx.zhimg.com/v2-d41c2ceaed8f51999522f903672a521f_l.jpg?source=1def8aca",
+            "avatarUrlTemplate": "https://picx.zhimg.com/v2-d41c2ceaed8f51999522f903672a521f.jpg?source=1def8aca",
+            "isOrg": false,
+            "type": "people",
+            "url": "https://www.zhihu.com/api/v4/people/0",
+            "userType": "people",
+            "headline": "",
+            "badge": [],
+            "badgeV2": {
+              "title": "",
+              "mergedBadges": [],
+              "detailBadges": [],
+              "icon": "",
+              "nightIcon": ""
+            },
+            "gender": 1,
+            "isAdvertiser": false,
+            "followerCount": 0,
+            "isFollowing": false,
+            "isFollowed": false,
+            "isCelebrity": false,
+            "isBlocking": false,
+            "isBlocked": false,
+            "isPrivacy": false
+          },
+          "canComment": {
+            "status": true,
+            "reason": ""
+          },
+          "thumbnailInfo": {
+            "count": 0,
+            "type": "thumbnail_info",
+            "thumbnails": []
+          },
+          "reviewInfo": {
+            "type": "",
+            "tips": "",
+            "editTips": "",
+            "isReviewing": false,
+            "editIsReviewing": false
+          },
+          "relatedCards": [],
+          "muteInfo": {
+            "type": ""
+          },
+          "showAuthor": false,
+          "isLabeled": false,
+          "isBannered": false,
+          "showEncourageAuthor": false,
+          "voteupCount": 22,
+          "canVote": true,
+          "reactionInstruction": {},
+          "invisibleAuthor": false,
+          "answerCountDescription": "全部内容 415",
+          "relationship": {
+            "isAuthor": false,
+            "isFollowing": false,
+            "isAnonymous": false,
+            "canLock": false,
+            "canStickAnswers": false,
+            "canCollapseAnswers": false,
+            "voting": 0
+          },
+          "id": "292527529"
+        }
+      },
+      "answers": {
+        "1309100505": {
+          "adminClosedComment": false,
+          "allowSegmentInteraction": 1,
+          "annotationAction": null,
+          "answerType": "normal",
+          "attachedInfo": "ogEhCAQQAxjZk53wBCCpu76LATIICgQxMDAxEAAyBQoBMBAAkgIlCgkyNjgwODQ4NDgSCjEzMDkxMDA1MDUYBCIKSU1BR0VfVEVYVA==",
+          "author": {
+            "avatarUrl": "https://picx.zhimg.com/v2-a965bb022ccd0107a7b3aa5e8cd83f7b_l.jpg?source=1def8aca",
+            "avatarUrlTemplate": "https://picx.zhimg.com/v2-a965bb022ccd0107a7b3aa5e8cd83f7b.jpg?source=1def8aca",
+            "badge": [],
+            "badgeV2": {
+              "detailBadges": [],
+              "icon": "",
+              "mergedBadges": [],
+              "nightIcon": "",
+              "title": ""
+            },
+            "exposedMedal": {
+              "avatarUrl": "https://picx.zhimg.com/v2-a4a733d68844ff22956ae0ada4bd9d6c_l.png?source=1def8aca",
+              "description": "被 500 个人关注",
+              "medalAvatarFrame": "",
+              "medalId": "972477022068568064",
+              "medalName": "备受瞩目",
+              "miniAvatarUrl": "https://picx.zhimg.com/v2-a4a733d68844ff22956ae0ada4bd9d6c_r.png?source=1def8aca"
+            },
+            "followerCount": 881,
+            "gender": -1,
+            "headline": "",
+            "id": "a37168909de5f65309a07cb2b0460a18",
+            "isAdvertiser": false,
+            "isFollowed": false,
+            "isFollowing": false,
+            "isOrg": false,
+            "isPrivacy": false,
+            "name": "user-5ebe1ec6",
+            "type": "people",
+            "url": "https://www.zhihu.com/api/v4/people/a37168909de5f65309a07cb2b0460a18",
+            "urlToken": "user-ca3a95ce",
+            "userType": "people"
+          },
+          "businessType": "normal",
+          "canComment": {
+            "reason": "",
+            "status": true
+          },
+          "collapseReason": "",
+          "collapsedBy": "nobody",
+          "commentCount": 0,
+          "commentPermission": "censor",
+          "content": "<p data-pid=\"l6X4i04z\">首先可以确定的说，留学中介暂时无排名这一说法。另外在选择留学机构这个问题上， 一家机构的实力以及在这过程中的申请流程都有可能会影响到学生的申请结果。来看下如何获取靠谱留学中介机构的推荐：</p><p data-pid=\"ryagF79R\"><b>1、首先，看资质。</b></p><p data-pid=\"rYi3hrG4\">选择留学中介机构前，看其是否具备<b><a href=\"https://link.zhihu.com/?target=https%3A//www.liuxue315.cn/special/jianguan.shtml%3Fozs%3D86542-2709\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\">教育部颁发的开展自费留学中介业务的资质</a></b>和工商局颁发的营业执照。一般来说，没有资质的黑留学中介如教育咨询公司，要么挂靠不是自己公司名称的有资质中介，要么就是其工商营业执照上其一般经营项目中有一条明明白白地写道：教育咨询（不含留学咨询及留学中介服务），这是分辨是否留学中介机构的一个重要依据。</p><p data-pid=\"c3-5ynVg\"><b>2、其次，审合同。</b>公司规模，是国企还是私企？是教育部直属的还是国家其他部门隶属下属的机构？国企的机构大多的合同是教育部发布示范文本，故在合同方面相对有一定保障，但是也不能保证服务过程就是完美的。无论是否采用教育部的示范文本合同，学生可以申请留学监理服务，让留学监理中心帮助审查合同中是否具 有霸王条款存在，以便提前防范留学陷阱。</p><p data-pid=\"6D8mrBJP\"><b>3、再次，查口碑。</b></p><figure data-size=\"normal\"><noscript><img src=\"https://picx.zhimg.com/50/v2-400bc9c76f225330cfff4cfc2f537256_720w.jpg?source=1def8aca\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"389\" data-rawheight=\"301\" data-original-token=\"v2-400bc9c76f225330cfff4cfc2f537256\" data-default-watermark-src=\"https://pica.zhimg.com/50/v2-ecf941e5b9ead783be98f4ba54fa6de5_720w.jpg?source=1def8aca\" class=\"content_image\" width=\"389\"/></noscript><img src=\"data:image/svg+xml;utf8,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;389&#39; height=&#39;301&#39;&gt;&lt;/svg&gt;\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"389\" data-rawheight=\"301\" data-original-token=\"v2-400bc9c76f225330cfff4cfc2f537256\" data-default-watermark-src=\"https://pica.zhimg.com/50/v2-ecf941e5b9ead783be98f4ba54fa6de5_720w.jpg?source=1def8aca\" class=\"content_image lazy\" width=\"389\" data-actualsrc=\"https://picx.zhimg.com/50/v2-400bc9c76f225330cfff4cfc2f537256_720w.jpg?source=1def8aca\"/></figure><p data-pid=\"3fMIJaOv\">在选择中介机构之前，建议去网络上搜索这家机构名称，看其在论坛、社区、投诉网站有无被投诉或产生纠纷的案例发生。留学中介的服务难免人人都满意，但是如果被投诉较多的话，则的确要谨慎选择。<b>可以直接通过留学监理网进行资质及口碑查询：</b></p><a data-draft-node=\"block\" data-draft-type=\"ad-link-card\" data-ad-id=\"Plugin_62b065febfc1c56a0858557463972dac\"></a><p data-pid=\"Ws06urp3\"><b>4、此外，选顾问。这一点划重点</b>，因为选个靠谱顾问比选一个中介显得更加重要和困难！即使是一家信用和口碑比较好的留学中介机构，留学顾问的水平也都是参差不齐的，所以要注意看留学顾问水平和服务态度。如何找到一个专业度高且办理成功经验丰富的留学顾问呢？那就要借助我们的强大的<b><a href=\"https://link.zhihu.com/?target=https%3A//school.liuxue315.cn/studyassess/%3Fozs%3D86542-2709\" class=\" wrap external\" target=\"_blank\" rel=\"nofollow noreferrer\">留学志愿参考系统</a></b>。</p><figure data-size=\"normal\"><noscript><img src=\"https://pica.zhimg.com/50/v2-b794a65d1e27efc6a6dae423fd2abb9b_720w.jpg?source=1def8aca\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"376\" data-rawheight=\"643\" data-original-token=\"v2-b794a65d1e27efc6a6dae423fd2abb9b\" class=\"content_image\" width=\"376\"/></noscript><img src=\"data:image/svg+xml;utf8,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;376&#39; height=&#39;643&#39;&gt;&lt;/svg&gt;\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"376\" data-rawheight=\"643\" data-original-token=\"v2-b794a65d1e27efc6a6dae423fd2abb9b\" class=\"content_image lazy\" width=\"376\" data-actualsrc=\"https://pica.zhimg.com/50/v2-b794a65d1e27efc6a6dae423fd2abb9b_720w.jpg?source=1def8aca\"/></figure><p data-pid=\"GxsFm3uV\"><b>使用方法：</b>把你的基本情况如<b>GPA、语言成绩、专业、院校背景</b>等条件输入到<b>留学志愿参考系统</b>中，这个系统会自动匹配出与你情况类似的申请案例，看看这些学生都申请到了哪些国外院校和专业，还可以查看与你情况相似的案例是由<b>哪家中介的哪个顾问</b>办理成功的，这样子去找这个顾问办理的话，申请成功率可能会大大增加！这是一个选顾问的方法。</p><a data-draft-node=\"block\" data-draft-type=\"ad-link-card\" data-ad-id=\"Plugin_f5c8c4c3d3e086d551fa7c60a78fa4e3\"></a><p></p>",
+          "contentMark": {
+            "marks": [
+              {
+                "markName": "利益相关",
+                "markType": "WISH"
+              }
+            ]
+          },
+          "contentNeedTruncated": true,
+          "createdTime": 1593420100,
+          "decorativeLabels": [],
+          "editableContent": "",
+          "excerpt": "首先可以确定的说，留学中介暂时无排名这一说法。另外在选择留学机构这个问题上， 一家机构的实力以及在这过程中的申请流程都有可能会影响到学生的申请结果。来看下如何获取靠谱留学中介机构的推荐： 1、首先，看资质。选择留学中介机构前，看其是否具备 教育部颁发的开展自费留学中介业务的资质 和工商局颁发的营业执照。一般来说，没有资质的黑留学中介如教育咨询公司，要么挂靠不是自己公司名称的有资质中介，要么就是其工商营…",
+          "extras": "",
+          "favlistsCount": 1572,
+          "forceLoginWhenClickReadMore": false,
+          "hasPublishingDraft": false,
+          "id": "1309100505",
+          "isCollapsed": false,
+          "isCopyable": true,
+          "isJumpNative": false,
+          "isMine": false,
+          "isNormal": true,
+          "isSticky": false,
+          "isVisible": true,
+          "matrixTips": "415 赞同 · 1572 收藏",
+          "question": {
+            "created": 1535530429,
+            "id": "292527529",
+            "questionType": "normal",
+            "relationship": null,
+            "title": "出国留学中介靠谱的都有哪些（前十名）？",
+            "type": "question",
+            "updatedTime": 1597705765,
+            "url": "https://www.zhihu.com/api/v4/questions/292527529"
+          },
+          "reaction": {
+            "relation": {
+              "faved": false,
+              "liked": false
+            },
+            "statistics": {
+              "downVoteCount": 52,
+              "favorites": 1572,
+              "likeCount": 255
+            }
+          },
+          "reactionInstruction": {},
+          "relationship": {
+            "isAuthor": false,
+            "isAuthorized": false,
+            "isFavorited": false,
+            "isNothelp": false,
+            "isThanked": false,
+            "upvotedFollowees": [],
+            "voting": 0
+          },
+          "relevantInfo": {
+            "isRelevant": false,
+            "relevantText": "",
+            "relevantType": ""
+          },
+          "reshipmentSettings": "allowed",
+          "rewardInfo": {
+            "canOpenReward": false,
+            "isRewardable": false,
+            "rewardMemberCount": 0,
+            "rewardTotalMoney": 0,
+            "tagline": ""
+          },
+          "settings": {
+            "tableOfContents": {
+              "enabled": false
+            }
+          },
+          "stickyInfo": "",
+          "suggestEdit": {
+            "reason": "",
+            "status": false,
+            "tip": "",
+            "title": "",
+            "unnormalDetails": {
+              "description": "",
+              "note": "",
+              "reason": "",
+              "reasonId": 0,
+              "status": ""
+            },
+            "url": ""
+          },
+          "thanksCount": 255,
+          "thumbnailInfo": {
+            "count": 2,
+            "thumbnails": [
+              {
+                "height": 301,
+                "token": "v2-400bc9c76f225330cfff4cfc2f537256",
+                "type": "image",
+                "url": "https://picx.zhimg.com/80/v2-400bc9c76f225330cfff4cfc2f537256_720w.jpg?source=1def8aca",
+                "width": 389
+              },
+              {
+                "height": 643,
+                "token": "v2-b794a65d1e27efc6a6dae423fd2abb9b",
+                "type": "image",
+                "url": "https://pic1.zhimg.com/80/v2-b794a65d1e27efc6a6dae423fd2abb9b_720w.jpg?source=1def8aca",
+                "width": 376
+              }
+            ],
+            "type": "thumbnail_info"
+          },
+          "type": "answer",
+          "updatedTime": 1683184829,
+          "url": "https://www.zhihu.com/api/v4/answers/1309100505",
+          "visibleOnlyToAuthor": false,
+          "voteupCount": 415
+        },
+        "2543422324": {
+          "adminClosedComment": false,
+          "allowSegmentInteraction": 1,
+          "annotationAction": null,
+          "answerType": "normal",
+          "attachedInfo": "ogEhCAQQAxj0lua8CSCpu76LATIICgQxMDAxEAAyBQoBMBAAkgIlCgk0OTI1MjQzMDYSCjI1NDM0MjIzMjQYBCIKSU1BR0VfVEVYVA==",
+          "author": {
+            "avatarUrl": "https://picx.zhimg.com/v2-a61c887095a44b0cd633e2cfcd005d2a_l.jpg?source=1def8aca",
+            "avatarUrlTemplate": "https://pic1.zhimg.com/v2-a61c887095a44b0cd633e2cfcd005d2a.jpg?source=1def8aca",
+            "badge": [
+              {
+                "description": "技能培训行业 技术合伙人",
+                "topics": [],
+                "type": "identity"
+              }
+            ],
+            "badgeV2": {
+              "detailBadges": [
+                {
+                  "description": "技能培训行业 技术合伙人",
+                  "detailType": "identity_people",
+                  "icon": "https://picx.zhimg.com/v2-2ddc5cc683982648f6f123616fb4ec09_l.png?source=32738c0c",
+                  "nightIcon": "https://picx.zhimg.com/v2-2ddc5cc683982648f6f123616fb4ec09_l.png?source=32738c0c",
+                  "sources": [],
+                  "title": "已认证的个人",
+                  "type": "identity",
+                  "url": "https://zhuanlan.zhihu.com/p/96956163"
+                }
+              ],
+              "icon": "https://picx.zhimg.com/v2-2ddc5cc683982648f6f123616fb4ec09_l.png?source=32738c0c",
+              "mergedBadges": [
+                {
+                  "description": "技能培训行业 技术合伙人",
+                  "detailType": "identity_people",
+                  "icon": "",
+                  "nightIcon": "",
+                  "sources": [],
+                  "title": "认证",
+                  "type": "identity",
+                  "url": "https://zhuanlan.zhihu.com/p/96956163"
+                }
+              ],
+              "nightIcon": "https://pica.zhimg.com/v2-2ddc5cc683982648f6f123616fb4ec09_l.png?source=32738c0c",
+              "title": "技能培训行业 技术合伙人"
+            },
+            "exposedMedal": {
+              "avatarUrl": "https://picx.zhimg.com/v2-13cd44de0025e34576038008bf13e26f_l.png?source=1def8aca",
+              "description": "获得 1000 个赞同",
+              "medalAvatarFrame": "",
+              "medalId": "972475023013875712",
+              "medalName": "有口皆碑",
+              "miniAvatarUrl": "https://pic1.zhimg.com/v2-13cd44de0025e34576038008bf13e26f_r.png?source=1def8aca"
+            },
+            "followerCount": 1881,
+            "gender": 1,
+            "headline": "",
+            "id": "bdfde9f1f5702f6de8b144c448f45c53",
+            "isAdvertiser": false,
+            "isFollowed": false,
+            "isFollowing": false,
+            "isOrg": false,
+            "isPrivacy": false,
+            "name": "user-7a40ec88",
+            "type": "people",
+            "url": "https://www.zhihu.com/api/v4/people/bdfde9f1f5702f6de8b144c448f45c53",
+            "urlToken": "user-c5d22f88",
+            "userType": "people"
+          },
+          "businessType": "normal",
+          "canComment": {
+            "reason": "",
+            "status": true
+          },
+          "collapseReason": "",
+          "collapsedBy": "nobody",
+          "commentCount": 24,
+          "commentPermission": "censor",
+          "content": "<blockquote data-pid=\"3vfhK-xV\"><b>智能摘要：帮你快速了解文章要点</b> <br/><b>留学中介选择经验：</b> <br/>1.作者在留学服务平台参与运营，积累了几万个学生评价，建立了一份优质中介老师名单池。 <br/>2.帮助3700+学生找到合适的中介老师，媒体报道其努力。 <br/><b>自己被坑经历与反思：</b> <br/>1. 自己当时选择名气大、价格高的中介，但服务质量差，信息错误频发。 <br/>2.自己发现中介机构的服务质量关键在于具体负责的老师，而非机构本身。 <br/>3.要直接与最终负责的老师交流，判断专业度和匹配度。 <br/>4.要多对比中介，不要急，不要偷懒，更不要只看名气。 <br/><b>服务与帮助：</b> 作者可根据学生需求推荐多位优质老师供对比，并提供合同条款审核等支持。</blockquote><a href=\"https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE\" data-draft-node=\"block\" data-draft-type=\"link-card\" data-draft-title=\"https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE关注 · 浏览\" data-draft-cover=\"\" class=\"internal\">https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE关注 · 浏览</a><hr/><p data-pid=\"9yvaljen\">我之前在一个留学服务平台做了几年运营，平台上累计了几万个学生对几千位老师真实的服务评价。都是我一条条经手的，所以我很清楚哪些老师申请哪些专业更有实力。</p><p data-pid=\"p8XWFsOd\">后来我又陆续和四十多位这几年出国的同学朋友聊过，我问他们，“如果让你再选一次，你还会选这位老师吗？”能毫不犹豫说“会”的，我才会把老师记下来。逐渐总结了一份好老师的名单池。</p><p data-pid=\"5OS-yw7C\">从口罩到现在，我在业余时间里用这份名单帮助了 3700 +个学生，媒体也报道我的努力。</p><figure data-size=\"normal\"><noscript><img src=\"https://pica.zhimg.com/50/v2-7ed3f9f731eb8c424186a66b08abec4f_720w.jpg?source=1def8aca\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"2024\" data-rawheight=\"1750\" data-original-token=\"v2-7ed3f9f731eb8c424186a66b08abec4f\" class=\"origin_image zh-lightbox-thumb\" width=\"2024\" data-original=\"https://pic1.zhimg.com/v2-7ed3f9f731eb8c424186a66b08abec4f_r.jpg?source=1def8aca\"/></noscript><img src=\"data:image/svg+xml;utf8,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;2024&#39; height=&#39;1750&#39;&gt;&lt;/svg&gt;\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"2024\" data-rawheight=\"1750\" data-original-token=\"v2-7ed3f9f731eb8c424186a66b08abec4f\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"2024\" data-original=\"https://pic1.zhimg.com/v2-7ed3f9f731eb8c424186a66b08abec4f_r.jpg?source=1def8aca\" data-actualsrc=\"https://pica.zhimg.com/50/v2-7ed3f9f731eb8c424186a66b08abec4f_720w.jpg?source=1def8aca\"/></figure><p data-pid=\"4zLOLhR2\"><b>为什么要收集好老师的名单池？</b></p><h3><b>一次被坑的经历</b></h3><p data-pid=\"M57dmhnr\">刚开始找留学中介时，我认为名气大的中介按道理是比较靠谱的，把申请的事情交给他们，我就可以专心提高GPA刷语言成绩，而且我还本着一分价钱一分货的纯朴，选择了一家贵一点的中介。</p><p data-pid=\"YTfg2p3E\">签约后，中介就把我交给一个老师，可是她在给我建议时一直不是很确信，每次我问问题都需要在下一次交流才得到答案，我非常怀疑她是个新手老师，不得不去和别人确认后才答复我，甚至几次给的学校信息都有错，还把我的名字拼写错，也让我怀疑他们的专业度和工作态度。后来我才知道和我有相同经历的人不在少数。原来，一个中介如果不靠谱，这种服务状况其实是常态。</p><h3><b>好的中介老师是怎么找到的</b></h3><p data-pid=\"8WoDmDld\">和第一家解约后，我的时间更紧张了，又花了近十天和几个中介聊了我能申请到的学校和专业，pass了几位回消息不积极的老师，以及两位把目标学校定的很高的老师（目标高不是说不好，但是有了之前吃亏的经历，我变得更加谨慎，担心没申上学校hhh，我真的特别求稳的说）。</p><p data-pid=\"Eqi8ofA4\">第二个合作的老师是学姐介绍的，老师都没有给我灌输过焦虑的心态，反而给我很多鼓励，什么时候该做什么都给我梳理得很清楚，我们俩的关系像战友，和我一起讨论并定好目标学校和专业；文书也一遍遍修改打磨，看着文书一点点变好是一件很棒的事情。老师认真负责的态度，对我们拖延症晚期选手来说，是个福音。我申的六所学校，收到了四所学校的offer，也是很满足了。</p><h3><b>决定帮助后来者</b></h3><p data-pid=\"xXD4RRj5\">在经历这些之后，我深刻体会到 找个好的留学中介真是超级头疼。要不是自己有些幸运，还不知道得折腾多久，所以我开始尝试去帮助一些学弟学妹。其实很多问题不在“机构大不大”，而在你遇到的是谁。当同学们把更多精力消耗在筛选与更换上，本应用于学习、实习或研究的时间被挤占，申请结果就得不到保障。</p><p data-pid=\"som6gGfC\"><b>想知道名单池里有哪些老师推荐，可以点击链接加我，</b>我都会尽量及时回复。</p><a href=\"https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE\" data-draft-node=\"block\" data-draft-type=\"link-card\" data-draft-title=\"https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE关注 · 浏览\" data-draft-cover=\"\" class=\"internal\">https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE关注 · 浏览</a><p data-pid=\"RXe420Si\">特别是想申请漂亮国 英国 新加坡 中国香港，读硕士博士本科的或者艺术类，我很有信心，名单里都有实力很强的老师可以帮到你。</p><p data-pid=\"lNlfXu-s\">别人推荐中介，基本只能推荐一个，而我可以针对你的情况，推荐三五个好老师给你去充分对比。所以同学们都很认可。</p><figure data-size=\"normal\"><noscript><img src=\"https://picx.zhimg.com/50/v2-36dbbbbc3b0e83de84f241cb975a3fbc_720w.jpg?source=1def8aca\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"830\" data-rawheight=\"466\" data-original-token=\"v2-36dbbbbc3b0e83de84f241cb975a3fbc\" data-default-watermark-src=\"https://picx.zhimg.com/50/v2-be2a649481aad1d50aafd9763f5cb7f4_720w.jpg?source=1def8aca\" class=\"origin_image zh-lightbox-thumb\" width=\"830\" data-original=\"https://pic1.zhimg.com/v2-36dbbbbc3b0e83de84f241cb975a3fbc_r.jpg?source=1def8aca\"/></noscript><img src=\"data:image/svg+xml;utf8,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;830&#39; height=&#39;466&#39;&gt;&lt;/svg&gt;\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"830\" data-rawheight=\"466\" data-original-token=\"v2-36dbbbbc3b0e83de84f241cb975a3fbc\" data-default-watermark-src=\"https://picx.zhimg.com/50/v2-be2a649481aad1d50aafd9763f5cb7f4_720w.jpg?source=1def8aca\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"830\" data-original=\"https://pic1.zhimg.com/v2-36dbbbbc3b0e83de84f241cb975a3fbc_r.jpg?source=1def8aca\" data-actualsrc=\"https://picx.zhimg.com/50/v2-36dbbbbc3b0e83de84f241cb975a3fbc_720w.jpg?source=1def8aca\"/></figure><figure data-size=\"normal\"><noscript><img src=\"https://picx.zhimg.com/50/v2-9eea20160862de5b06fefaea7766e877_720w.jpg?source=1def8aca\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"1159\" data-rawheight=\"759\" data-original-token=\"v2-9eea20160862de5b06fefaea7766e877\" data-default-watermark-src=\"https://picx.zhimg.com/50/v2-8dfa17f9de608ce9f3fbb75650211496_720w.jpg?source=1def8aca\" class=\"origin_image zh-lightbox-thumb\" width=\"1159\" data-original=\"https://picx.zhimg.com/v2-9eea20160862de5b06fefaea7766e877_r.jpg?source=1def8aca\"/></noscript><img src=\"data:image/svg+xml;utf8,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;1159&#39; height=&#39;759&#39;&gt;&lt;/svg&gt;\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"1159\" data-rawheight=\"759\" data-original-token=\"v2-9eea20160862de5b06fefaea7766e877\" data-default-watermark-src=\"https://picx.zhimg.com/50/v2-8dfa17f9de608ce9f3fbb75650211496_720w.jpg?source=1def8aca\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"1159\" data-original=\"https://picx.zhimg.com/v2-9eea20160862de5b06fefaea7766e877_r.jpg?source=1def8aca\" data-actualsrc=\"https://picx.zhimg.com/50/v2-9eea20160862de5b06fefaea7766e877_720w.jpg?source=1def8aca\"/></figure><h3><b>找留学中介的几个建议</b></h3><p data-pid=\"piTW7v0r\">如果你也正在找留学中介，请一定要沉住气，不要犯我当年的错！在国内目前留学行业还比较鱼龙混杂的状态下，多看看多对比，总是好的！</p><blockquote data-pid=\"yfFiZFsP\">1.要和那个最终指导你申请的老师直接交流，一方面可以更好判断老师的专业度，一方面能和老师详细交流不同案例的得失。  <br/>2.要感受对方的气场是否和自己匹配，比如表达是否清晰果断，像那些经常说“应该是”“大概，也许”“可能吧”的老师就先别考虑了。  <br/>3.不要跟那些过度给你灌输焦虑心态的中介保持联系，我说的是过度哈，免得自己心态崩了。  <br/>4.一定要多对比，兼听则明。找中介这事儿不要马虎，前期不努力，后边就容易糟心。  <br/>5.一个好的中介真的可以省下你很多的时间精力，提供申请过程的确定性，提升成功率。  <br/>6.不管最后选择哪家中介，都不能够放任不管，毕竟申请的事情归根到底是咱们自己的事。</blockquote><p data-pid=\"bOC7QQz4\">找留学中介是一个很磨人的过程，你现在经历的正是我之前经历的。</p><p data-pid=\"Idc6xj9x\">如果需要推荐一些中介老师的话，加我之后请告诉我 <b>你想申请的国家地区和专业方向</b>。这样高效的沟通，能帮我更快筛选出好老师。我平时也挺忙，回复可能不秒回，但都会认真看。</p><a href=\"https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE\" data-draft-node=\"block\" data-draft-type=\"link-card\" data-draft-title=\"https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE关注 · 浏览\" data-draft-cover=\"\" class=\"internal\">https://xg.zhihu.com/plugin/37ae88ee6c50de0ad24c3ec2cb6b20d0?BIZ=ECOMMERCE关注 · 浏览</a><p data-pid=\"5acoocKV\"><b>当然，如果你在签约时需要我帮忙过目一下合同条款是否合理，我也可以帮忙，但是得提前给我，就可以了。</b></p>",
+          "contentMark": {
+            "marks": [
+              {
+                "markName": "利益相关",
+                "markType": "WISH"
+              }
+            ]
+          },
+          "contentNeedTruncated": true,
+          "createdTime": 1656076689,
+          "decorativeLabels": [],
+          "editableContent": "",
+          "excerpt": "智能摘要：帮你快速了解文章要点 留学中介选择经验： 1.作者在留学服务平台参与运营，积累了几万个学生评价，建立了一份优质中介老师名单池。 2.帮助3700+学生找到合适的中介老师，媒体报道其努力。 自己被坑经历与反思： 1. 自己当时选择名气大、价格高的中介，但服务质量差，信息错误频发。 2.自己发现中介机构的服务质量关键在于具体负责的老师，而非机构本身。 3.要直接与最终负责的老师交流，判断专业度和匹配度。 4.要多对…",
+          "extras": "",
+          "favlistsCount": 666,
+          "forceLoginWhenClickReadMore": false,
+          "hasPublishingDraft": false,
+          "id": "2543422324",
+          "isCollapsed": false,
+          "isCopyable": true,
+          "isJumpNative": false,
+          "isMine": false,
+          "isNormal": true,
+          "isSticky": false,
+          "isVisible": true,
+          "matrixTips": "376 赞同 · 666 收藏 · 24 评论",
+          "question": {
+            "created": 1535530429,
+            "id": "292527529",
+            "questionType": "normal",
+            "relationship": null,
+            "title": "出国留学中介靠谱的都有哪些（前十名）？",
+            "type": "question",
+            "updatedTime": 1597705765,
+            "url": "https://www.zhihu.com/api/v4/questions/292527529"
+          },
+          "reaction": {
+            "relation": {
+              "faved": false,
+              "liked": false
+            },
+            "statistics": {
+              "downVoteCount": 44,
+              "favorites": 666,
+              "likeCount": 146
+            }
+          },
+          "reactionInstruction": {},
+          "relationship": {
+            "isAuthor": false,
+            "isAuthorized": false,
+            "isFavorited": false,
+            "isNothelp": false,
+            "isThanked": false,
+            "upvotedFollowees": [],
+            "voting": 0
+          },
+          "relevantInfo": {
+            "isRelevant": false,
+            "relevantText": "",
+            "relevantType": ""
+          },
+          "reshipmentSettings": "allowed",
+          "rewardInfo": {
+            "canOpenReward": false,
+            "isRewardable": true,
+            "rewardMemberCount": 0,
+            "rewardTotalMoney": 0,
+            "tagline": "真诚赞赏，手留余香"
+          },
+          "settings": {
+            "tableOfContents": {
+              "enabled": false
+            }
+          },
+          "stickyInfo": "",
+          "suggestEdit": {
+            "reason": "",
+            "status": false,
+            "tip": "",
+            "title": "",
+            "unnormalDetails": {
+              "description": "",
+              "note": "",
+              "reason": "",
+              "reasonId": 0,
+              "status": ""
+            },
+            "url": ""
+          },
+          "thanksCount": 146,
+          "thumbnailInfo": {
+            "count": 3,
+            "thumbnails": [
+              {
+                "height": 1750,
+                "token": "v2-7ed3f9f731eb8c424186a66b08abec4f",
+                "type": "image",
+                "url": "https://picx.zhimg.com/80/v2-7ed3f9f731eb8c424186a66b08abec4f_720w.jpg?source=1def8aca",
+                "width": 2024
+              },
+              {
+                "height": 466,
+                "token": "v2-36dbbbbc3b0e83de84f241cb975a3fbc",
+                "type": "image",
+                "url": "https://picx.zhimg.com/80/v2-36dbbbbc3b0e83de84f241cb975a3fbc_720w.jpg?source=1def8aca",
+                "width": 830
+              },
+              {
+                "height": 759,
+                "token": "v2-9eea20160862de5b06fefaea7766e877",
+                "type": "image",
+                "url": "https://picx.zhimg.com/80/v2-9eea20160862de5b06fefaea7766e877_720w.jpg?source=1def8aca",
+                "width": 1159
+              }
+            ],
+            "type": "thumbnail_info"
+          },
+          "type": "answer",
+          "updatedTime": 1773124512,
+          "url": "https://www.zhihu.com/api/v4/answers/2543422324",
+          "visibleOnlyToAuthor": false,
+          "voteupCount": 376
+        },
+        "3601426439": {
+          "adminClosedComment": false,
+          "allowSegmentInteraction": 1,
+          "annotationAction": null,
+          "answerType": "normal",
+          "attachedInfo": "ogE2CAQQAxiH0KW1DSCpu76LATIICgQxMDAyEAAyCQoFMTAwMjMQADIICgQxMDAxEAAyBQoBMBAAkgIlCgk2ODQ4NzUxODASCjM2MDE0MjY0MzkYBCIKSU1BR0VfVEVYVA==",
+          "author": {
+            "avatarUrl": "https://picx.zhimg.com/v2-abed1a8c04700ba7d72b45195223e0ff_l.jpg?source=1def8aca",
+            "avatarUrlTemplate": "https://pic1.zhimg.com/v2-abed1a8c04700ba7d72b45195223e0ff.jpg?source=1def8aca",
+            "badge": [],
+            "badgeV2": {
+              "detailBadges": [],
+              "icon": "",
+              "mergedBadges": [],
+              "nightIcon": "",
+              "title": ""
+            },
+            "exposedMedal": {
+              "avatarUrl": "https://picx.zhimg.com/v2-b745dab79c957a541eb72381ece4438d_l.png?source=1def8aca",
+              "description": "获得 10000 个赞同",
+              "medalAvatarFrame": "",
+              "medalId": "972475023013875712",
+              "medalName": "有口皆碑",
+              "miniAvatarUrl": "https://pic1.zhimg.com/v2-b745dab79c957a541eb72381ece4438d_r.png?source=1def8aca"
+            },
+            "followerCount": 7296,
+            "gender": 0,
+            "headline": "",
+            "id": "43fd36a2322a6cbca941b893c8f20dda",
+            "isAdvertiser": false,
+            "isFollowed": false,
+            "isFollowing": false,
+            "isOrg": false,
+            "isPrivacy": true,
+            "name": "user-6ce107cb",
+            "type": "people",
+            "url": "https://www.zhihu.com/api/v4/people/0",
+            "urlToken": "",
+            "userType": "people"
+          },
+          "businessType": "normal",
+          "canComment": {
+            "reason": "",
+            "status": true
+          },
+          "collapseReason": "",
+          "collapsedBy": "nobody",
+          "commentCount": 11,
+          "commentPermission": "censor",
+          "content": "<p data-pid=\"AfsP8URK\">双非本科，均分80，成功上岸利兹大学。<b>申请的时候找过不下十家机构，题主说的几家我都去找了，在找中介上收获了很多经验，不对，是教训~~好在最后拿下了<a href=\"https://www.zhihu.com/search?q=%E5%88%A9%E5%85%B9%E5%A4%A7%E5%AD%A6&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A1383478004%7D\" class=\"internal\" target=\"_blank\">利兹大学</a>的offer，算是小有成就，所以给大家分享下我的血泪史。</b></p><figure data-size=\"normal\"><noscript><img src=\"https://picx.zhimg.com/50/v2-655c6227e833632618b9a021195d730a_720w.jpg?source=1def8aca\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"632\" data-rawheight=\"768\" data-original-token=\"v2-615fcb07adf66e04b60208d9684d60c6\" data-default-watermark-src=\"https://picx.zhimg.com/50/v2-655c6227e833632618b9a021195d730a_720w.jpg?source=1def8aca\" class=\"origin_image zh-lightbox-thumb\" width=\"632\" data-original=\"https://picx.zhimg.com/v2-655c6227e833632618b9a021195d730a_r.jpg?source=1def8aca\"/></noscript><img src=\"data:image/svg+xml;utf8,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;632&#39; height=&#39;768&#39;&gt;&lt;/svg&gt;\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"632\" data-rawheight=\"768\" data-original-token=\"v2-615fcb07adf66e04b60208d9684d60c6\" data-default-watermark-src=\"https://picx.zhimg.com/50/v2-655c6227e833632618b9a021195d730a_720w.jpg?source=1def8aca\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"632\" data-original=\"https://picx.zhimg.com/v2-655c6227e833632618b9a021195d730a_r.jpg?source=1def8aca\" data-actualsrc=\"https://picx.zhimg.com/50/v2-655c6227e833632618b9a021195d730a_720w.jpg?source=1def8aca\"/></figure><p data-pid=\"HPnYSXUf\">说到留学，<b>选中介</b>绝对是个绕不开的话，留学不是个小事情，况且家里也不富裕，所以在<b>选中介</b>时我建议是<b>一定一定要擦亮眼睛多比较</b>。在选择出国留学中介时，有许多因素需要考虑。<b>以下是一些建议，帮助你做出明智的选择：</b></p><p data-pid=\"9dPjtJ2J\">1、了解中介背景：在选择中介之前，先了解其背景和资质。确认其是否具备合法经营资质和良好信誉。</p><p data-pid=\"1wdMTB8k\">2、考察专业能力：选择对留学申请流程和要求有深入了解的中介。他们应能够提供准确的留学信息和专业的申请建议。</p><p data-pid=\"gao5dD5s\">3、对比服务质量：比较不同中介的服务质量，包括咨询、文书撰写、申请流程跟踪等方面的服务。选择能够提供全方位服务的中介。</p><p data-pid=\"z8yQCSEi\">4、考虑个性化需求：不同的学生有不同的留学需求和目标。选择能够根据你的个人情况和需求提供定制化服务的中介。</p><p data-pid=\"re1zKvbv\">5、咨询口碑评价：在选择中介之前，通过互联网搜索、社交媒体平台和留学论坛等途径了解其他学生的评价和经验，以便做出更明智的选择。</p><p data-pid=\"FRVLRej4\">6、避免陷阱和风险：在选择中介时，要注意避免一些常见的陷阱和风险，如高昂的中介费、不透明的申请流程和低质量的文书服务等。</p><p data-pid=\"V9K4Tlu3\">最后我选择了一个<b>学姐向我推荐</b>的知名度没那么高的机构，叫<b>myOffer</b>，几轮沟通后，我发现<b>这家机构还是挺靠谱的</b>。</p><p data-pid=\"-yvEnb3k\">说一下自己的感受吧，<b>最直观的感受就是价格低。<u>几千块钱就可以申请六所海外名校包括选校、文书、投递、签证以及接机那些。我有同学是选择<a href=\"https://www.zhihu.com/search?q=%E5%8D%8ADIY&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A1383478004%7D\" class=\"internal\" target=\"_blank\">半DIY</a>的，找了专门写文书的，但是花的钱和我全包的是差不多的。</u></b></p><p data-pid=\"eVqbs6HB\"><b>第二个就是挺负责的，</b>整个过程的服务态度我是挺认可的，没有推什么不知名的院校，在签约之前，我还是先通过选校系统测试了的，大概知道了自己能申请哪些大学，这个基本没有人为操作的空间，最后顾问给的方案也是比较接近。</p><p data-pid=\"wLitU_6-\"><b>这是myOffer提供的免费院校匹配工具，会为你提供15个院校，包括核心、冲刺和保底各五所。</b></p><a href=\"https://xg.zhihu.com/plugin/34a3fe7edfb011dca7417b46a5f7670c?BIZ=ECOMMERCE\" data-draft-node=\"block\" data-draft-type=\"link-card\" class=\"internal\"><span class=\"invisible\">https://</span><span class=\"visible\">xg.zhihu.com/plugin/34a</span><span class=\"invisible\">3fe7edfb011dca7417b46a5f7670c?BIZ=ECOMMERCE</span><span class=\"ellipsis\"></span></a><p data-pid=\"7IX1AhFm\"><b>只需要输入你的毕业院校、绩点、意愿的国家，系统就能从<a href=\"https://www.zhihu.com/search?q=%E6%95%B0%E6%8D%AE%E5%BA%93&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A1383478004%7D\" class=\"internal\" target=\"_blank\">数据库</a>里面根据之前学生的申请案例，以及各大院校的申请要求中自动匹配适合你的海外院校。</b></p><p data-pid=\"2q6SCnxN\">就算你之后打算找中介，也可以提前看一下自己能够申请哪些院校，不要被中介牵着鼻子走！不用怕被骗，反正也是免费的。</p><p data-pid=\"5GqDygeZ\">我是在大四10月份的时候才决定出国留学的，然后从实习公司辞职回学校学习英语，同时也准备申请学校，直到12月份拿到了<a href=\"https://www.zhihu.com/search?q=%E5%8D%A1%E8%BF%AA%E5%A4%AB&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A1383478004%7D\" class=\"internal\" target=\"_blank\">卡迪夫</a>的的 offer，又过了一个月拿到了利兹的offer。</p><p data-pid=\"aGcmQqxh\">十月份之前一直在北京的公司，所以申请材料的准备都是找顾问和室友帮忙弄的，真的挺难的。</p><p data-pid=\"OJKga7YA\">其实拿到这两个offer我还是挺意外的，本科是一所双非普通一本大学，均分大概是76.7分，拿过一年的奖学金，两段京东的实习经历，申请的专业 是Advanced Computer Science，但是以我目前的条件来看，150以内是没有希望的，可是在myOffer的帮助下成功拿到了这两所院校的offer。</p><p data-pid=\"ywdLztIz\">说几个选择中介时应该要看重的地方吧，这都是我根据自身经验，以及网上扒的经验贴总结下来的：</p><p data-pid=\"oZcXRUo-\">1、<b>在申请的过程中一定要反复去问申请专业的学校是不是有list</b>，现在很多英国院校都有这个，一定要确认好，建议几家中介都去问一下，不然就是在做无用功。</p><p data-pid=\"DI1gkla9\">2、<b>尽可能去找中介的官网查看。</b>一般来说正规机构都是有自己的官网，尤其是在这个互联网时代，官网就是一个机构的门面，一般都会把自己的优势展现出来，如果公司没有官网或者官网比较敷衍，首先这印象分就降低了，至少我是这么认为的。</p><p data-pid=\"JOmNMINC\">3、<b>多找几家留学中介，对比着看他们给出来的留学方案，</b>有时候也不要尽信，所以一定要多去对比，也可以在网上先根据院校的要求、学长学姐的经验参照着看一下自己大概能申请哪个段位的院校。</p><p data-pid=\"9CP79yXQ\">插一句，如果不方便找学长学姐的同学，也可以像我一样<b>用这个选校工具</b>，只要输入<b>毕业院校，均分等信息就能匹配15所院校</b>，在<b>申请之前能做到心中有数</b>！</p><a href=\"https://xg.zhihu.com/plugin/34a3fe7edfb011dca7417b46a5f7670c?BIZ=ECOMMERCE\" data-draft-node=\"block\" data-draft-type=\"link-card\" class=\"internal\"><span class=\"invisible\">https://</span><span class=\"visible\">xg.zhihu.com/plugin/34a</span><span class=\"invisible\">3fe7edfb011dca7417b46a5f7670c?BIZ=ECOMMERCE</span><span class=\"ellipsis\"></span></a><p data-pid=\"O7pPE8kN\" class=\"ztext-empty-paragraph\"><br/></p><p data-pid=\"wMg8zdpw\">话说回来，也不要太相信学长学姐，毕竟他们中的大多数人也是第一次留学，留学经验不是特别丰富，所能提供的经验比较局限。</p><p data-pid=\"mwH0dvC2\"><b>4、签约后表现不好的，一定要及时止损。</b>这情况太常见了，很多机构就是签约后态度一百八十度大反转，我有个舍友就是找了题主提到的一个大机构，签约前特别热情、上心，天天几个消息、电话来寒暄，最后签约之后，用我舍友的话来说就是：直接被晾着了，发个消息很时间不回。</p><p data-pid=\"t-DJ9gvH\">遇到这种情况，不要自认倒霉，毕竟你是花了真金实银的，快点去投诉、反馈，如果到最后还是解决不了，及时止损，以降低自己的损失，毕竟还要申请留学，不要把全部精力都用去撕了。</p><p data-pid=\"6gFRkj2s\"><b>5、找一个比较感觉比较nice的老师，可以从与他的沟通中体现，</b>毕竟申请周期长达小半年甚至一年，一定要慎重。很多人都说不要太相信中介，不然很容易把自己诓了，刚开始我的确是紧盯整个过程，但最后发现找个中介的确是省心不少，申请的过程可以在app里面实时查看。</p><p data-pid=\"BqpFQLMn\">跟我沟通最多的就是文案老师，她真的很认真，我觉得如果有一个很认真的人在帮你办事，真的很让人放心，其实相信大家和我一样都是第一次申请出国，根本没有任何经验，完全不知道什么时候该办什么事儿，老师会提醒我，并且督促我做好每个阶段应该做的事情，就连考试的时间也是非常上心的。</p><figure data-size=\"normal\"><noscript><img src=\"https://pic1.zhimg.com/50/v2-efa2bfe26cf5bc6ffa1622a2358932a1_720w.jpg?source=1def8aca\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"440\" data-rawheight=\"426\" data-original-token=\"v2-e3207c18672fb4dd9c7f8f8479ec953c\" data-default-watermark-src=\"https://picx.zhimg.com/50/v2-efa2bfe26cf5bc6ffa1622a2358932a1_720w.jpg?source=1def8aca\" class=\"origin_image zh-lightbox-thumb\" width=\"440\" data-original=\"https://picx.zhimg.com/v2-efa2bfe26cf5bc6ffa1622a2358932a1_r.jpg?source=1def8aca\"/></noscript><img src=\"data:image/svg+xml;utf8,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;440&#39; height=&#39;426&#39;&gt;&lt;/svg&gt;\" data-caption=\"\" data-size=\"normal\" data-rawwidth=\"440\" data-rawheight=\"426\" data-original-token=\"v2-e3207c18672fb4dd9c7f8f8479ec953c\" data-default-watermark-src=\"https://picx.zhimg.com/50/v2-efa2bfe26cf5bc6ffa1622a2358932a1_720w.jpg?source=1def8aca\" class=\"origin_image zh-lightbox-thumb lazy\" width=\"440\" data-original=\"https://picx.zhimg.com/v2-efa2bfe26cf5bc6ffa1622a2358932a1_r.jpg?source=1def8aca\" data-actualsrc=\"https://pic1.zhimg.com/50/v2-efa2bfe26cf5bc6ffa1622a2358932a1_720w.jpg?source=1def8aca\"/></figure><p class=\"ztext-empty-paragraph\"><br/></p><p data-pid=\"bJgCuSkS\">我经常想一出是一出的，所有有的时候比如午休或者晚上人家下班的时候还要去找老师，但是无论什么时候她都会非常耐心地帮我解决问题，学校那边通知什么事情，无论大事小事，她也都会一一把邮件给我转发过来。</p><p data-pid=\"sUoM2q1C\">其实我自己也DIY申请过几个大学，像伦敦玛丽女王、兰<a href=\"https://www.zhihu.com/search?q=%E5%8D%A1%E6%96%AF%E7%89%B9&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A1383478004%7D\" class=\"internal\" target=\"_blank\">卡斯特</a>、纽卡斯尔以及<a href=\"https://www.zhihu.com/search?q=%E7%BA%A6%E5%85%8B&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A1383478004%7D\" class=\"internal\" target=\"_blank\">约克</a>我都申请过，但是没有例外地都被拒绝了，所以我真的很意外能够拿到利兹的offer。</p><p data-pid=\"69Hpv8Ha\">所以我要再<b>推荐一下myOffer</b>，他们<b>留学办理的整个过程还是很靠谱</b>，他们家在<b>英国本地有自己的分公司</b>，对于想申英国的同学还是有不少优势的，另外还有<b>海外公寓</b>、<b>海外实习</b>等服务，的确是一条龙服务了<b>，</b>感兴趣的小伙伴可以去了解一下，<b>也可以先获取下留学方案↓ ↓ ↓ </b></p><p data-pid=\"4VwQ3X01\" class=\"ztext-empty-paragraph\"><br/></p><a href=\"https://xg.zhihu.com/plugin/34a3fe7edfb011dca7417b46a5f7670c?BIZ=ECOMMERCE\" data-draft-node=\"block\" data-draft-type=\"link-card\" class=\"internal\"><span class=\"invisible\">https://</span><span class=\"visible\">xg.zhihu.com/plugin/34a</span><span class=\"invisible\">3fe7edfb011dca7417b46a5f7670c?BIZ=ECOMMERCE</span><span class=\"ellipsis\"></span></a><p data-pid=\"Mc62AkcV\">最后，说一句所以，如果打算打中介，不要只去注重名气、牌子，重要的是与你对接的老师，找中介有时候也是看运气，如果能找到一个负责任的老师，的确能帮你省不少心。</p>",
+          "contentMark": {
+            "marks": [
+              {
+                "markName": "利益相关",
+                "markType": "WISH"
+              }
+            ]
+          },
+          "contentNeedTruncated": true,
+          "createdTime": 1724217165,
+          "decorativeLabels": [],
+          "editableContent": "",
+          "excerpt": "双非本科，均分80，成功上岸利兹大学。 申请的时候找过不下十家机构，题主说的几家我都去找了，在找中介上收获了很多经验，不对，是教训~~好在最后拿下了利兹大学 的offer，算是小有成就，所以给大家分享下我的血泪史。 [图片] 说到留学， 选中介绝对是个绕不开的话，留学不是个小事情，况且家里也不富裕，所以在选中介时我建议是一定一定要擦亮眼睛多比较。在选择出国留学中介时，有许多因素需要考虑。以下是一些建议，帮助你做出明智的…",
+          "extras": "",
+          "favlistsCount": 891,
+          "forceLoginWhenClickReadMore": false,
+          "hasPublishingDraft": false,
+          "id": "3601426439",
+          "isCollapsed": false,
+          "isCopyable": true,
+          "isJumpNative": false,
+          "isMine": false,
+          "isNormal": true,
+          "isSticky": false,
+          "isVisible": true,
+          "matrixTips": "265 赞同 · 891 收藏 · 11 评论",
+          "question": {
+            "created": 1535530429,
+            "id": "292527529",
+            "questionType": "normal",
+            "relationship": null,
+            "title": "出国留学中介靠谱的都有哪些（前十名）？",
+            "type": "question",
+            "updatedTime": 1597705765,
+            "url": "https://www.zhihu.com/api/v4/questions/292527529"
+          },
+          "reaction": {
+            "relation": {
+              "faved": false,
+              "liked": false
+            },
+            "statistics": {
+              "downVoteCount": 79,
+              "favorites": 891,
+              "likeCount": 58
+            }
+          },
+          "reactionInstruction": {},
+          "relationship": {
+            "isAuthor": false,
+            "isAuthorized": false,
+            "isFavorited": false,
+            "isNothelp": false,
+            "isThanked": false,
+            "upvotedFollowees": [],
+            "voting": 0
+          },
+          "relevantInfo": {
+            "isRelevant": false,
+            "relevantText": "",
+            "relevantType": ""
+          },
+          "reshipmentSettings": "allowed",
+          "rewardInfo": {
+            "canOpenReward": false,
+            "isRewardable": false,
+            "rewardMemberCount": 0,
+            "rewardTotalMoney": 0,
+            "tagline": ""
+          },
+          "settings": {
+            "tableOfContents": {
+              "enabled": false
+            }
+          },
+          "stickyInfo": "",
+          "suggestEdit": {
+            "reason": "",
+            "status": false,
+            "tip": "",
+            "title": "",
+            "unnormalDetails": {
+              "description": "",
+              "note": "",
+              "reason": "",
+              "reasonId": 0,
+              "status": ""
+            },
+            "url": ""
+          },
+          "thanksCount": 58,
+          "thumbnailInfo": {
+            "count": 2,
+            "thumbnails": [
+              {
+                "height": 768,
+                "token": "v2-615fcb07adf66e04b60208d9684d60c6",
+                "type": "image",
+                "url": "https://pic1.zhimg.com/80/v2-615fcb07adf66e04b60208d9684d60c6_720w.jpg?source=1def8aca",
+                "width": 632
+              },
+              {
+                "height": 426,
+                "token": "v2-e3207c18672fb4dd9c7f8f8479ec953c",
+                "type": "image",
+                "url": "https://pic1.zhimg.com/80/v2-e3207c18672fb4dd9c7f8f8479ec953c_720w.jpg?source=1def8aca",
+                "width": 440
+              }
+            ],
+            "type": "thumbnail_info"
+          },
+          "type": "answer",
+          "updatedTime": 1724221256,
+          "url": "https://www.zhihu.com/api/v4/answers/3601426439",
+          "visibleOnlyToAuthor": false,
+          "voteupCount": 265
+        }
+      },
+      "articles": {},
+      "columns": {},
+      "topics": {},
+      "roundtables": {},
+      "favlists": {},
+      "comments": {},
+      "notifications": {},
+      "ebooks": {},
+      "activities": {},
+      "feeds": {},
+      "pins": {},
+      "promotions": {},
+      "drafts": {},
+      "chats": {},
+      "posts": {},
+      "zvideos": {},
+      "eduCourses": {},
+      "lineComments": {}
+    },
+    "currentUser": "",
+    "account": {
+      "unlockTicketStatus": false,
+      "unlockTicket": null,
+      "challenge": [],
+      "errorStatus": false,
+      "message": "",
+      "isFetching": false,
+      "accountInfo": {},
+      "urlToken": {
+        "loading": false
+      },
+      "cardUserInfo": {
+        "vipInfo": {}
+      },
+      "handleWidget": {},
+      "widgetList": [],
+      "userWidgetId": ""
+    },
+    "settings": {
+      "socialBind": null,
+      "inboxMsg": null,
+      "notification": {},
+      "email": {},
+      "privacyFlag": null,
+      "blockedUsers": {
+        "isFetching": false,
+        "paging": {
+          "pageNo": 1,
+          "pageSize": 6
+        },
+        "data": []
+      },
+      "blockedFollowees": {
+        "isFetching": false,
+        "paging": {
+          "pageNo": 1,
+          "pageSize": 6
+        },
+        "data": []
+      },
+      "ignoredTopics": {
+        "isFetching": false,
+        "paging": {
+          "pageNo": 1,
+          "pageSize": 6
+        },
+        "data": []
+      },
+      "restrictedTopics": null,
+      "laboratory": {}
+    },
+    "notification": {},
+    "people": {
+      "profileStatus": {},
+      "activitiesByUser": {},
+      "answersByUser": {},
+      "answersSortByVotesByUser": {},
+      "answersIncludedByUser": {},
+      "votedAnswersByUser": {},
+      "thankedAnswersByUser": {},
+      "voteAnswersByUser": {},
+      "thankAnswersByUser": {},
+      "topicAnswersByUser": {},
+      "zvideosByUser": {},
+      "articlesByUser": {},
+      "articlesSortByVotesByUser": {},
+      "articlesIncludedByUser": {},
+      "pinsByUser": {},
+      "pinsAgentByUser": {},
+      "questionsByUser": {},
+      "commercialQuestionsByUser": {},
+      "favlistsByUser": {},
+      "followingByUser": {},
+      "followersByUser": {},
+      "mutualsByUser": {},
+      "followingColumnsByUser": {},
+      "followingQuestionsByUser": {},
+      "followingFavlistsByUser": {},
+      "followingTopicsByUser": {},
+      "publicationsByUser": {},
+      "columnsByUser": {},
+      "allFavlistsByUser": {},
+      "brands": null,
+      "creationsByUser": {},
+      "creationsSortByVotesByUser": {},
+      "creationsFeed": {},
+      "lineCommentsByUser": {},
+      "infinity": {},
+      "batchUsers": {},
+      "profileInfinity": null
+    },
+    "env": {
+      "abV2": {
+        "config": {
+          "paramMap": {
+            "ws_column_square": {
+              "value": "1",
+              "abId": "rl-column_square_pc-1"
+            },
+            "wm_pc_hot": {
+              "value": "0"
+            },
+            "nm_gift_button": {
+              "value": "PC0"
+            },
+            "ws_PC_AI_Panel": {
+              "value": "1",
+              "abId": "rl-PC_AI_Panel-1"
+            },
+            "px_hottiming_PC": {
+              "value": "2"
+            }
+          },
+          "abMap": {
+            "rl-column_square_pc-1": {
+              "abId": "rl-column_square_pc-1",
+              "layerId": "rl-column_square_pc"
+            },
+            "rl-PC_AI_Panel-1": {
+              "abId": "rl-PC_AI_Panel-1",
+              "layerId": "rl-PC_AI_Panel"
+            }
+          }
+        },
+        "triggers": {}
+      },
+      "userAgent": {
+        "Edge": false,
+        "IE": false,
+        "Wechat": false,
+        "Weibo": false,
+        "QQ": false,
+        "MQQBrowser": false,
+        "Qzone": false,
+        "Mobile": false,
+        "Android": false,
+        "HarmonyOS": false,
+        "iOS": false,
+        "isAppleDevice": false,
+        "Zhihu": false,
+        "ZhihuHybrid": false,
+        "isBot": false,
+        "Tablet": false,
+        "UC": false,
+        "Quark": false,
+        "Sogou": false,
+        "Qihoo": false,
+        "Baidu": false,
+        "BaiduApp": false,
+        "Safari": false,
+        "GoogleBot": false,
+        "AndroidDaily": false,
+        "iOSDaily": false,
+        "Zhixuetang": false,
+        "WxMiniProgram": false,
+        "BaiduMiniProgram": false,
+        "QQMiniProgram": false,
+        "JDMiniProgram": false,
+        "OpenHarmony": false,
+        "isWebView": false,
+        "isMiniProgram": false,
+        "origin": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      },
+      "appViewConfig": {},
+      "ctx": {
+        "path": "/question/292527529",
+        "query": {},
+        "href": "http://www.zhihu.com/question/292527529",
+        "host": "www.zhihu.com"
+      },
+      "trafficSource": "production",
+      "edition": {
+        "beijing": false,
+        "baidu": false,
+        "sogou": false,
+        "baiduBeijing": false,
+        "sogouBeijing": false,
+        "sogouInput": false,
+        "oppoSearch": false,
+        "baiduSearch": false,
+        "googleSearch": false,
+        "shenma": false,
+        "miniProgram": false,
+        "xiaomi": false,
+        "huaweiSearch": false
+      },
+      "theme": "light",
+      "appHeaderTheme": {
+        "current": "normal",
+        "disable": true,
+        "normal": {
+          "bgColor": "GBK99A"
+        },
+        "custom": {
+          "bgColor": "GBK99A"
+        }
+      },
+      "enableShortcut": true,
+      "referer": "",
+      "xUDId": "GYHVwt3nEhyPTgG-1-rpBvBXXfw6I6SEhB0=",
+      "mode": "ssr",
+      "conf": {},
+      "xTrafficFreeOrigin": "",
+      "ipInfo": {},
+      "logged": false,
+      "query": {},
+      "vars": {
+        "passThroughHeaders": {}
+      }
+    },
+    "me": {
+      "columnContributions": []
+    },
+    "label": {},
+    "ecommerce": {},
+    "oiaModal": {
+      "visible": false,
+      "cancelCallback": null
+    },
+    "comments": {
+      "pagination": {},
+      "collapsed": {},
+      "reverse": {},
+      "reviewing": {},
+      "conversation": {},
+      "parent": {}
+    },
+    "commentsV2": {
+      "stickers": [],
+      "commentWithPicPermission": {},
+      "notificationsComments": {},
+      "pagination": {},
+      "collapsed": {},
+      "reverse": {},
+      "reviewing": {},
+      "conversation": {},
+      "conversationMore": {},
+      "parent": {}
+    },
+    "pushNotifications": {
+      "default": {
+        "isFetching": false,
+        "isDrained": false,
+        "ids": []
+      },
+      "follow": {
+        "isFetching": false,
+        "isDrained": false,
+        "ids": []
+      },
+      "vote_thank": {
+        "isFetching": false,
+        "isDrained": false,
+        "ids": []
+      },
+      "currentTab": "default",
+      "notificationsCount": {
+        "default": 0,
+        "follow": 0,
+        "vote_thank": 0
+      }
+    },
+    "messages": {
+      "data": {},
+      "currentTab": "common",
+      "messageCount": 0
+    },
+    "register": {
+      "registerValidateSucceeded": null,
+      "registerValidateErrors": {},
+      "registerConfirmError": null,
+      "sendDigitsError": null,
+      "registerConfirmSucceeded": null
+    },
+    "login": {
+      "loginUnregisteredError": false,
+      "loginBindWechatError": false,
+      "loginConfirmError": null,
+      "sendDigitsError": null,
+      "needSMSIdentify": false,
+      "validateDigitsError": false,
+      "loginConfirmSucceeded": null,
+      "qrcodeLoginToken": "",
+      "qrcodeLoginScanStatus": 0,
+      "qrcodeLoginError": null,
+      "qrcodeLoginReturnNewToken": false
+    },
+    "switches": {},
+    "captcha": {
+      "captchaNeeded": false,
+      "captchaValidated": false
+    },
+    "sms": {
+      "supportedCountries": []
+    },
+    "chat": {
+      "chats": {},
+      "inbox": {
+        "recents": {
+          "isFetching": false,
+          "isDrained": false,
+          "isPrevDrained": false,
+          "result": [],
+          "next": null,
+          "key": null
+        },
+        "strangers": {
+          "isFetching": false,
+          "isDrained": false,
+          "isPrevDrained": false,
+          "result": [],
+          "next": null,
+          "key": null
+        },
+        "friends": {
+          "isFetching": false,
+          "isDrained": false,
+          "isPrevDrained": false,
+          "result": [],
+          "next": null,
+          "key": null
+        },
+        "search": {
+          "isFetching": false,
+          "isDrained": false,
+          "isPrevDrained": false,
+          "result": [],
+          "next": null,
+          "key": null
+        },
+        "config": {
+          "newCount": 0,
+          "strangerMessageSwitch": false,
+          "strangerMessageUnread": false,
+          "friendCount": 0
+        }
+      },
+      "global": {
+        "isChatMqttExisted": false
+      }
+    },
+    "emoticons": {
+      "emoticonGroupList": [],
+      "emoticonGroupDetail": {}
+    },
+    "creator": {
+      "tools": {
+        "question": {
+          "invitationCount": {
+            "questionFolloweeCount": 0,
+            "questionTotalCount": 0
+          }
+        },
+        "recommend": {
+          "recommendTimes": {}
+        }
+      },
+      "explore": {},
+      "levelUpperLimit": 10,
+      "mcn": {},
+      "mcnManage": {},
+      "tasks": {},
+      "announcement": {},
+      "creatorsRecommendInfo": {},
+      "ideaTopics": {
+        "topics": [],
+        "isEnd": false
+      }
+    },
+    "creators": {
+      "common": {
+        "applyStatus": {},
+        "rightsStatus": {}
+      },
+      "bayesDomains": {
+        "status": {},
+        "options": {
+          "topDomains": null,
+          "allDomains": null,
+          "editable": 0,
+          "remainDomainLightCount": 5
+        },
+        "contents": null
+      },
+      "school": {
+        "tabs": [],
+        "contents": [],
+        "banner": null,
+        "entities": {}
+      },
+      "faq": {
+        "tabs": [],
+        "article": {}
+      },
+      "knowledgeIncome": {},
+      "safeguardRights": {},
+      "analytics": {
+        "all": {},
+        "answer": {},
+        "zvideo": {},
+        "article": {},
+        "pin": {},
+        "singleContent": {}
+      },
+      "account": {
+        "growthLevel": {}
+      },
+      "KMResource": {},
+      "training": {},
+      "ToolsQuestion": {
+        "goodatTopics": []
+      },
+      "ToolsHotspot": {
+        "domains": []
+      },
+      "ToolsRecommend": {},
+      "ToolsCustomPromotion": {
+        "itemLists": {},
+        "baseInfo": {}
+      },
+      "ToolsSearchQuestion": {},
+      "editorSetting": {},
+      "MCNManage": {},
+      "knowledgeTasks": {},
+      "incomeAnalysis": {
+        "income": {
+          "aggregation": {}
+        }
+      },
+      "creationManage": {
+        "editModal": {
+          "status": false
+        }
+      },
+      "activity": {},
+      "announcement": {},
+      "home": {
+        "currentCreatorUrlToken": null,
+        "rights": [],
+        "newRights": [],
+        "scoreInfo": {},
+        "menusShowControlByServer": {
+          "bVipRecomend": false,
+          "creationRelationship": false
+        },
+        "newTasks": {
+          "creatorTask": {
+            "tasks": [],
+            "des": []
+          }
+        },
+        "bannerList": [],
+        "recentlyCreated": [],
+        "homecard": {},
+        "homeData": {},
+        "creationInspiration": {
+          "creationInspirationV2": null,
+          "creationStatistics": null,
+          "checkinActivity": null
+        },
+        "leaderboard": {
+          "loading": false,
+          "error": null,
+          "rankHome": null,
+          "bestAnswererHome": null,
+          "rankDomain": null,
+          "currentRankType": null,
+          "currentDomain": null
+        }
+      },
+      "videoSupport": {
+        "textBenefit": {}
+      },
+      "videoDistribution": {},
+      "profilePoster": {
+        "creatorPosterConfig": {},
+        "creatorPosterData": {}
+      }
+    },
+    "question": {
+      "followers": {},
+      "concernedFollowers": {},
+      "answers": {
+        "292527529": {
+          "isFetching": false,
+          "isDrained": true,
+          "ids": [
+            {
+              "type": "question_feed_card",
+              "targetType": "answer",
+              "target": "3601426439",
+              "skipCount": false,
+              "position": 0,
+              "cursor": "8f9194e6719abbfbea1754ac140d0384",
+              "isJumpNative": false
+            },
+            {
+              "type": "question_feed_card",
+              "targetType": "answer",
+              "target": "2543422324",
+              "skipCount": false,
+              "position": 0,
+              "cursor": "8f9194e6719abbfb5419dd99140d0384",
+              "isJumpNative": false
+            },
+            {
+              "type": "question_feed_card",
+              "targetType": "answer",
+              "target": "1309100505",
+              "skipCount": false,
+              "position": 0,
+              "cursor": "8f9194e6719abbfb36ec7c8b140d0384",
+              "isJumpNative": false
+            }
+          ],
+          "newIds": [
+            {
+              "type": "question_feed_card",
+              "targetType": "answer",
+              "target": "3601426439",
+              "skipCount": false,
+              "position": 0,
+              "cursor": "8f9194e6719abbfbea1754ac140d0384",
+              "isJumpNative": false
+            },
+            {
+              "type": "question_feed_card",
+              "targetType": "answer",
+              "target": "2543422324",
+              "skipCount": false,
+              "position": 0,
+              "cursor": "8f9194e6719abbfb5419dd99140d0384",
+              "isJumpNative": false
+            },
+            {
+              "type": "question_feed_card",
+              "targetType": "answer",
+              "target": "1309100505",
+              "skipCount": false,
+              "position": 0,
+              "cursor": "8f9194e6719abbfb36ec7c8b140d0384",
+              "isJumpNative": false
+            }
+          ],
+          "error": false,
+          "errorPayload": null,
+          "antiSpider": false,
+          "emptyText": "",
+          "needForceLogin": true,
+          "next": "https://www.zhihu.com/api/v4/questions/292527529/feeds?cursor=8f9194e6719abbfb36ec7c8b140d0384&include=data%5B%2A%5D.is_normal%2Cadmin_closed_comment%2Creward_info%2Cis_collapsed%2Cannotation_action%2Cannotation_detail%2Ccollapse_reason%2Cis_sticky%2Ccollapsed_by%2Csuggest_edit%2Ccomment_count%2Ccan_comment%2Ccontent%2Ceditable_content%2Cattachment%2Cvoteup_count%2Creshipment_settings%2Ccomment_permission%2Ccreated_time%2Cupdated_time%2Creview_info%2Crelevant_info%2Cquestion%2Cexcerpt%2Cis_labeled%2Cpaid_info%2Cpaid_info_content%2Creaction%2Creaction_instruction%2Csegment_infos%2Callow_segment_interaction%2Chot_comment%2Crelationship.is_authorized%2Cis_author%2Cvoting%2Cis_thanked%2Cis_nothelp%3Bdata%5B%2A%5D.author.follower_count%2Cvip_info%2Ckvip_info%2Cbadge%5B%2A%5D.topics%3Bdata%5B%2A%5D.settings.table_of_content.enabled&limit=3&offset=1&order=default&platform=desktop&session_id=1776850148428520750&ws_qiangzhisafe=0",
+          "sessionId": "1776850148428520750"
+        }
+      },
+      "hiddenAnswers": {},
+      "updatedAnswers": {},
+      "ariaAnswers": {},
+      "collapsedAnswers": {},
+      "notificationAnswers": {},
+      "invitedQuestions": {
+        "total": {
+          "count": null,
+          "isEnd": false,
+          "isLoading": false,
+          "questions": []
+        },
+        "followees": {
+          "count": null,
+          "isEnd": false,
+          "isLoading": false,
+          "questions": []
+        }
+      },
+      "laterQuestions": {
+        "count": null,
+        "isEnd": false,
+        "isLoading": false,
+        "questions": []
+      },
+      "waitingQuestions": {
+        "recommend": {
+          "isEnd": false,
+          "isLoading": false,
+          "questions": []
+        },
+        "invite": {
+          "isEnd": false,
+          "isLoading": false,
+          "questions": []
+        },
+        "newest": {
+          "isEnd": false,
+          "isLoading": false,
+          "questions": []
+        },
+        "hot": {
+          "isEnd": false,
+          "isLoading": false,
+          "questions": []
+        }
+      },
+      "invitationCandidates": {},
+      "inviters": {},
+      "invitees": {},
+      "similarQuestions": {},
+      "questionBanners": {},
+      "relatedCommodities": {},
+      "bio": {},
+      "brand": {},
+      "permission": {},
+      "adverts": {},
+      "advancedStyle": {},
+      "commonAnswerCount": 0,
+      "hiddenAnswerCount": 0,
+      "topicMeta": {
+        "isLoading": {}
+      },
+      "bluestarRanklist": {},
+      "relatedSearch": {},
+      "autoInvitation": {},
+      "simpleConcernedFollowers": {},
+      "draftStatus": {},
+      "disclaimers": {},
+      "isShowMobileSignInModal": false,
+      "aiTask": null
+    },
+    "shareTexts": {},
+    "answers": {
+      "voters": {},
+      "upvoters": {},
+      "copyrightApplicants": {},
+      "favlists": {},
+      "newAnswer": {},
+      "entityWords": {},
+      "paidContent": {},
+      "settings": {},
+      "relationEndorsement": {},
+      "growthCardOrder": {}
+    },
+    "banner": {},
+    "topic": {
+      "bios": {},
+      "hot": {},
+      "newest": {},
+      "top": {},
+      "sticky": {},
+      "pin": {},
+      "unanswered": {},
+      "questions": {},
+      "zivdeo": {},
+      "zvideo-new": {},
+      "pin20": {},
+      "pin20-new": {},
+      "followers": {},
+      "contributors": {},
+      "parent": {},
+      "children": {},
+      "bestAnswerers": {},
+      "wikiMeta": {},
+      "index": {},
+      "intro": {},
+      "meta": {},
+      "schema": {},
+      "creatorWall": {},
+      "wikiEditInfo": {},
+      "committedWiki": {},
+      "landingBasicData": {},
+      "landingExcellentItems": [],
+      "landingExcellentEditors": [],
+      "landingCatalog": [],
+      "landingEntries": {}
+    },
+    "explore": {
+      "recommendations": {},
+      "specials": {
+        "entities": {},
+        "order": []
+      },
+      "roundtables": {
+        "entities": {},
+        "order": []
+      },
+      "collections": {},
+      "columns": {},
+      "square": {
+        "hotQuestionList": [],
+        "potentialList": []
+      }
+    },
+    "articles": {
+      "voters": {},
+      "upvoters": {},
+      "relationEndorsement": {}
+    },
+    "favlists": {
+      "relations": {}
+    },
+    "pins": {
+      "reviewing": {},
+      "upvoters": {},
+      "relationEndorsement": {},
+      "paidColumnInfo": {}
+    },
+    "publishedModal": {
+      "relatedRings": []
+    },
+    "topstory": {
+      "recommend": {
+        "isFetching": false,
+        "isDrained": false,
+        "afterId": 0,
+        "items": [],
+        "next": null
+      },
+      "follow": {
+        "isFetching": false,
+        "isDrained": false,
+        "afterId": 0,
+        "items": [],
+        "next": null
+      },
+      "followWonderful": {
+        "isFetching": false,
+        "isDrained": false,
+        "afterId": 0,
+        "items": [],
+        "next": null
+      },
+      "sidebar": null,
+      "announcement": {},
+      "hotList": [],
+      "hotListHeadZone": [],
+      "guestFeeds": {
+        "isFetching": false,
+        "isDrained": false,
+        "afterId": 0,
+        "items": [],
+        "next": null
+      },
+      "followExtra": {
+        "isNewUser": null,
+        "isFetched": false,
+        "followCount": 0,
+        "followers": []
+      },
+      "hotDaily": {
+        "data": [],
+        "paging": {}
+      },
+      "hotHighlight": {
+        "isFetching": false,
+        "isDrained": false,
+        "data": [],
+        "paging": {}
+      },
+      "banner": {},
+      "commercialBanner": {
+        "show": false,
+        "banner": {},
+        "trackData": {}
+      },
+      "video": {
+        "items": [],
+        "next": null,
+        "isLoading": false,
+        "isDrained": false
+      },
+      "ringTab": {
+        "headerData": null,
+        "feedLoading": false,
+        "feedError": false,
+        "feedPaging": {},
+        "feedList": []
+      }
+    },
+    "upload": {},
+    "video": {
+      "data": {},
+      "shareVideoDetail": {},
+      "last": {}
+    },
+    "zvideos": {
+      "campaignVideoList": {},
+      "campaigns": {},
+      "tagoreCategory": [],
+      "recommendations": {},
+      "insertable": {},
+      "recruit": {
+        "form": {
+          "platform": "",
+          "nickname": "",
+          "followerCount": "",
+          "domain": "",
+          "contact": ""
+        },
+        "submited": false,
+        "ranking": []
+      },
+      "qyActivityData": {},
+      "talkActivityData": {},
+      "party2022ActivityData": {},
+      "batchVideos": {},
+      "creationReferences": {},
+      "zvideoCollection": {},
+      "zvideoGrant": {},
+      "collectData": {
+        "isFetching": false,
+        "list": []
+      },
+      "videoSource": {
+        "isLoaded": false
+      },
+      "paidColumnInfo": {}
+    },
+    "guide": {
+      "guide": {
+        "isFetching": false,
+        "isShowGuide": false
+      }
+    },
+    "reward": {
+      "answer": {},
+      "article": {},
+      "question": {}
+    },
+    "search": {
+      "recommendSearch": [],
+      "topSearch": {},
+      "searchValue": {},
+      "suggestSearch": {},
+      "attachedInfo": {
+        "generalByQuery": {}
+      },
+      "nextOffset": {
+        "generalByQuery": {}
+      },
+      "topicReview": {},
+      "sidebar": {},
+      "calendar": {},
+      "scores": null,
+      "majors": {},
+      "university": {},
+      "generalByQuery": {},
+      "generalByQueryInADay": {},
+      "generalByQueryInAWeek": {},
+      "generalByQueryInThreeMonths": {},
+      "peopleByQuery": {},
+      "topicByQuery": {},
+      "zvideoByQuery": {},
+      "scholarByQuery": {},
+      "columnByQuery": {},
+      "liveByQuery": {},
+      "albumByQuery": {},
+      "eBookByQuery": {},
+      "kmGeneralByQuery": {},
+      "kmCourseByQuery": {},
+      "favlistByQuery": {},
+      "ringByQuery": {},
+      "customFilter": {
+        "requestFinished": false,
+        "keys": [],
+        "tags": []
+      },
+      "zhidaRelatedQuestions": {
+        "isLoading": false,
+        "data": [],
+        "showZhidaRelatedQuestionsCard": false
+      }
+    },
+    "creatorSalt": {
+      "recommendQuestionList": [],
+      "bannerList": [],
+      "claimBannerList": [],
+      "sites": [],
+      "domains": {},
+      "hasRecored": false,
+      "hasClaim": false,
+      "hasContributedList": [],
+      "notContributedList": [],
+      "contributesTotal": null,
+      "previewPageTitle": "",
+      "previewPageContent": "",
+      "restContributionNumber": "-"
+    },
+    "publicEditPermission": {},
+    "readStatus": {},
+    "draftHistory": {
+      "history": {},
+      "drafts": {}
+    },
+    "notifications": {
+      "recent": {
+        "isFetching": false,
+        "isDrained": false,
+        "isPrevDrained": false,
+        "result": [],
+        "next": null,
+        "key": null
+      },
+      "history": {
+        "isFetching": false,
+        "isDrained": false,
+        "isPrevDrained": false,
+        "result": [],
+        "next": null,
+        "key": null
+      },
+      "notificationActors": {
+        "isFetching": false,
+        "isDrained": false,
+        "isPrevDrained": false,
+        "result": [],
+        "next": null,
+        "key": null
+      },
+      "recentNotificationEntry": "all"
+    },
+    "specials": {
+      "entities": {},
+      "all": {
+        "data": [],
+        "paging": {},
+        "isLoading": false
+      }
+    },
+    "collections": {
+      "hot": {
+        "data": [],
+        "paging": {},
+        "isLoading": false,
+        "errorPayload": null
+      },
+      "collectionFeeds": {}
+    },
+    "userProfit": {
+      "permission": {
+        "permissionStatus": {
+          "zhiZixuan": 0,
+          "recommend": -1,
+          "task": 0,
+          "plugin": 0,
+          "infinity": 0
+        },
+        "visible": false
+      },
+      "linkCardLimit": 0
+    },
+    "mcn": {
+      "bindInfo": {},
+      "memberCategoryList": [],
+      "producerList": [],
+      "categoryList": [],
+      "lists": {},
+      "banners": {},
+      "protocolStatus": {
+        "isAgreedNew": true,
+        "isAgreedOld": true
+      },
+      "probationCountdownDays": 0
+    },
+    "mcnActivity": {
+      "household": {
+        "products": {},
+        "rankList": {
+          "total": {},
+          "yesterday": {}
+        }
+      }
+    },
+    "brand": {
+      "contentPlugin": {}
+    },
+    "host": {
+      "roundtable": {
+        "subjects": {},
+        "applications": {
+          "total": 0
+        },
+        "online": {
+          "total": 0
+        },
+        "applies": {},
+        "details": {},
+        "includedResource": {},
+        "hotQuestions": {},
+        "warmupContents": {},
+        "batchInclude": {}
+      },
+      "special": {
+        "applications": {
+          "total": 0,
+          "pages": {},
+          "entities": {}
+        },
+        "censorHistory": {},
+        "drafts": {}
+      }
+    },
+    "campaign": {
+      "single": {},
+      "list": {},
+      "videoMakerAcq": {},
+      "vote": {},
+      "cardCollecting": {
+        "message": null,
+        "profile": {
+          "balance": "0",
+          "chance": 0,
+          "coinNum": 0,
+          "gatherClose": false,
+          "isGotMagicCard": false,
+          "isPay": false,
+          "partitionStart": false,
+          "totalDone": 0,
+          "withdrawStart": false
+        },
+        "sharePoster": {
+          "share": "",
+          "sendCard": "",
+          "invite": ""
+        },
+        "shareLink": null,
+        "shareIntention": "share",
+        "shareKey": null,
+        "shareCardId": null,
+        "inviterInfo": null,
+        "giverInfo": null,
+        "prize": null,
+        "receivedCard": null,
+        "newCoinCount": null,
+        "newCardList": [],
+        "newUserCardCount": 1,
+        "taskList": [],
+        "prizeList": null,
+        "cardList": null,
+        "panel": {
+          "showTaskPanel": false,
+          "showRewardPanel": false
+        },
+        "modal": {
+          "showWelcomeModal": false,
+          "showFusionModal": false,
+          "showFusionPromptModal": false,
+          "showShareModal": false,
+          "showBackModal": false
+        }
+      },
+      "zhiboPandian2020": null,
+      "boarding": {},
+      "searchGaokaoSubPage": {},
+      "searchHealth": {}
+    },
+    "knowledgePlan": {
+      "lists": {},
+      "allCreationRankList": {},
+      "featuredQuestions": {}
+    },
+    "wallE": {
+      "protectHistory": {
+        "total": 0,
+        "pages": {},
+        "entities": {}
+      }
+    },
+    "roundtables": {
+      "hotQuestions": {},
+      "warmupContents": {},
+      "hotDiscussions": {},
+      "selectedContents": {},
+      "roundtables": {}
+    },
+    "helpCenter": {
+      "entities": {
+        "question": {},
+        "category": {}
+      },
+      "categories": [],
+      "commonQuestions": [],
+      "relatedQuestions": {},
+      "faqTypes": []
+    },
+    "republish": {},
+    "commercialReport": {
+      "commercialTypes": []
+    },
+    "creatorMCN": {
+      "mcn": {},
+      "mcnStatistics": {},
+      "mcnRight": {
+        "bind": false,
+        "coupon": false
+      },
+      "isNoAuth": false,
+      "creatorManageData": [],
+      "creatorManageDataTotal": 1,
+      "mcnDomains": [],
+      "bill": {
+        "list": {},
+        "detail": {}
+      },
+      "healthScore": {
+        "healthScore": "0",
+        "updateTime": "",
+        "evaluate": ""
+      },
+      "healthScoreRecordInfo": {},
+      "beforeDownloadCheckResult": {},
+      "beforePromotionData": [],
+      "afterPromotionData": []
+    },
+    "commentManage": {
+      "commentList": {
+        "ids": [],
+        "entities": {},
+        "nextOffset": 0,
+        "urlToken": ""
+      },
+      "subCommentList": {
+        "ids": [],
+        "entities": {},
+        "paging": {
+          "next": "",
+          "isEnd": false
+        }
+      }
+    },
+    "commentPermission": {},
+    "creatorRightStatus": {
+      "list": []
+    },
+    "zhiPlus": {
+      "permissionStatus": 9999
+    },
+    "streaming": {},
+    "creationRanking": {},
+    "eduSections": {
+      "eduSectionState": {}
+    },
+    "adPromotion": {
+      "answer": {},
+      "article": {}
+    },
+    "editVideo": {
+      "editVideoEnabled": false,
+      "isZvideoUser": false
+    },
+    "zhidaEntry": {
+      "sidebar": {
+        "answer": {},
+        "question": {}
+      },
+      "answerBottom": {}
+    },
+    "guideZhidaCard": {
+      "cardStatus": {
+        "isShowGuideZhidaCard": false,
+        "guideZhidaCardInView": false,
+        "isClickedBeforeAbIndex": false,
+        "isManualClose": false,
+        "clickedPosition": -1
+      }
+    },
+    "hotSpot": {},
+    "contentColumnCard": {},
+    "rings": {
+      "rankList": {},
+      "membersList": {},
+      "membersListPaging": {},
+      "inviteDetails": {},
+      "inviteDetailsErrors": {},
+      "moreRings": {},
+      "moreRingsPaging": {},
+      "agentRings": [],
+      "banners": {},
+      "apiDocs": {
+        "payload": null,
+        "isLoading": false,
+        "isError": false
+      },
+      "moltBookUserStatus": "unlogged",
+      "moltBookUserMessage": "",
+      "moltBookUserSk": ""
+    },
+    "menuIgnoreSet": {}
+  },
+  "subAppName": "main",
+  "spanName": "QuestionPage",
+  "canaryConfig": {
+    "test_canary": "0",
+    "use_new_player": "0",
+    "player_vendor": "0",
+    "use_hevc": "1",
+    "upload_use_signature": "1",
+    "use_backdrop_blur": "1",
+    "article_title_imagex": "1",
+    "play_station": "1",
+    "use_cached_supported_countries": "1",
+    "segment_interaction": "1",
+    "creation_center_v2": "1"
+  }
+}
