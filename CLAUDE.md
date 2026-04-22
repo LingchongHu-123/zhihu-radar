@@ -71,9 +71,25 @@ other.** This is mechanically enforced by `.dependency-cruiser.cjs`. Read
 5. **After resolving a non-obvious error, append a short note to
    `docs/agent-learnings.md`** so the next agent doesn't re-walk the same path.
 
+## Subagents
+
+Narrow-scope dev agents live in `.claude/agents/`. Delegate to them instead
+of doing their job inline — each has a deliberately tiny surface area and
+refuses to act outside it. Current roster:
+
+- `harness-guardian` — runs `pnpm check`, reports verbatim, never edits.
+- `layer-sentinel` — reviews a file/diff for layering violations, read-only.
+- `type-carver` — writes one `src/types/` file from a real-data sample.
+- `test-scribe` — writes vitest tests + fixtures for one src file.
+- `adr-drafter` — drafts `docs/decisions/NNN-*.md` from a decision brief.
+
+Each agent's file contains its "why" and hard boundaries. Read the agent
+before delegating if you haven't used it before.
+
 ## Pointers
 
 - `docs/architecture.md` — full rationale for the layering.
 - `docs/decisions/` — ADRs. Read before changing architectural shape.
 - `docs/agent-learnings.md` — accumulated gotchas from prior sessions.
 - `.dependency-cruiser.cjs` — mechanical rules with inline comments.
+- `.claude/agents/` — subagent definitions (see above).
