@@ -1,8 +1,13 @@
 # ADR 004: Augment keyword signal matching with Claude-discovered signals
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-04-24
 - **Author:** Intent-analysis recall session
+- **Implementation:** landed in `feat(processors): Phase C-revisit`
+  (7435717). Schema change, `mergeSignals`, `confidenceWeightedDensity`,
+  `MAX_DISCOVERED_SIGNALS`, and the `DEFAULT_MAX_TOKENS` bump all in
+  `src/processors/`. Phase E's report command consumes the weighting
+  for intra-topic ranking in `src/runtime/commands/report.ts`.
 
 ## Context
 

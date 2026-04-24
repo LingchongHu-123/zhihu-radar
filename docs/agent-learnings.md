@@ -36,6 +36,39 @@ a session, and **append to it** after resolving anything non-trivial.
 
 <!-- New entries go below this line, most recent first. -->
 
+### 2026-04-24 — Windows CRLF silently breaks byte-exact snapshot tests
+**Context:** Phase E prep — `pnpm check` was green but `pnpm test` went
+red on `tests/outputs/markdown-report.test.ts > matches the bytes in
+sample-report.expected.md`. The test is a byte-exact `===` comparison
+against a committed fixture file. No code had changed in outputs/
+recently.
+**Symptom:** `expected false to be true`. `file sample-report.expected.md`
+reported `CRLF line terminators`; the renderer emits `\n` only. Also:
+fresh worktrees on this machine always show ~47 `.md` / `.mjs` / `.json`
+files as "modified" in `git status` with zero content diff under
+`git diff --ignore-cr-at-eol` — the phantom-change problem we kept
+seeing.
+**Root cause:** this machine has `git config --global core.autocrlf=true`,
+and the repo had no `.gitattributes`. On checkout, git was silently
+turning committed-LF files into CRLF in the working tree. Snapshot
+tests compare bytes, so they broke; git status treats size changes as
+modifications, hence the phantom "modified" list.
+**Fix:** added `.gitattributes` with `* text=auto eol=lf`. But **a
+plain `git add --renormalize .` + `git checkout-index -a -f` did not
+refresh already-checked-out files** (index and blob were both LF
+already; there was nothing for git to "renormalize"). The working-tree
+copies had to be rewritten directly. A small node script that reads
+the `git ls-files --eol` output and rewrites each `w/crlf` file to LF
+in-place is the reliable way. After that, `git status` went empty and
+the snapshot test turned green.
+**Keep in mind:** `.gitattributes` fixes **future** checkouts, not
+existing working-tree files that were put there before the attribute
+was in effect. Any Windows contributor onboarding will need either a
+fresh clone **or** the node-script trick to normalize in place. Don't
+reach for `sed -i` or `dos2unix` on Windows — they may not exist in
+Git Bash, and you'll waste time debugging the tool instead of the
+actual problem.
+
 ### 2026-04-23 — comment_v5 is the one /api/v4 path that isn't walled
 **Context:** Phase A followup — fetchCommentsForAnswer needed a source.
 The SSR question page never hydrates `entities.comments` in practice
