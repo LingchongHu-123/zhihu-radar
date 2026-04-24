@@ -1,6 +1,6 @@
 # ADR 003: Source 知乎 data via SSR HTML, not the JSON API
 
-- **Status:** Proposed
+- **Status:** Accepted (implemented in `src/sources/zhihu-answers.ts`; SSR parsing covered by Phase A tests. Comments fetch deferred to Phase E.)
 - **Date:** 2026-04-22
 - **Author:** Phase A fixture-capture session
 

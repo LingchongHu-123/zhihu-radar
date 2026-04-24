@@ -1,6 +1,6 @@
 # ADR 002: Prompt caching in processors
 
-- **Status:** Proposed
+- **Status:** Accepted (implemented in Phase C; cache-friendly prefix invariant pinned by test in `tests/processors/intent-analysis.test.ts`)
 - **Date:** 2026-04-22
 - **Author:** adr-drafter session
 

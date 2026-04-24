@@ -17,15 +17,17 @@ in the Decisions log at the bottom.
 ## Current layer status
 
 ```
-types/       ████████░░ 80%  shapes defined, not validated against real data
-config/      █████████░ 90%  signals/thresholds/env all present
-sources/     ████░░░░░░ 40%  written, zero tests, zero real-data fixtures
-validators/  ░░░░░░░░░░  0%
-processors/  ░░░░░░░░░░  0%  (ADR 002 sets the caching rule)
-outputs/     ░░░░░░░░░░  0%
-runtime/     ██░░░░░░░░ 20%  (placeholder cli.ts only)
-tests/       ░░░░░░░░░░  0%  no fixtures, no tests
+types/       ██████████ 100%  shapes carved against real fixture; signal.source field added (Phase C-revisit)
+config/      ██████████ 100%  signals/thresholds/env all present; SIGNAL_KINDS_IN_ORDER + CONFIDENCE_WEIGHT_FLOOR added
+sources/     ██████░░░░  60%  fetchAnswersForQuestion done with tests; fetchCommentsForAnswer is still a throw stub (Phase E followup)
+validators/  ██████████ 100%  answer-quality predicate, three gates (Phase B)
+processors/  ██████████ 100%  signal-matcher + intent-analysis + Claude-discovered signal augmentation (Phase C + revisit, ADR 002 + 004)
+outputs/     ██████████ 100%  markdown-report renderer + committed expected.md fixture (Phase D)
+runtime/     ██░░░░░░░░  20%  placeholder cli.ts; no scrape/analyze/report commands yet (Phase E)
+tests/       ███████░░░  70%  57 tests across 5 files; runtime/ + Phase F still uncovered
 ```
+
+(Status as of Phase D + Phase C-revisit shipped. Phase E and Phase F remain.)
 
 ## Build order (do not skip)
 
