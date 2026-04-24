@@ -8,13 +8,19 @@ import { describe, it, expect } from "vitest";
 import {
   matchSignals,
   computeSignalDensity,
+  mergeSignals,
+  confidenceWeightedDensity,
 } from "../../src/processors/signal-matcher.js";
 import type { Answer, Comment } from "../../src/types/answer.js";
+import type { ConversionSignal } from "../../src/types/signal.js";
 import {
   SIGNAL_KEYWORDS,
   SIGNAL_KINDS_IN_ORDER,
 } from "../../src/config/signals.js";
-import { MIN_CHARS_FOR_DENSITY } from "../../src/config/thresholds.js";
+import {
+  CONFIDENCE_WEIGHT_FLOOR,
+  MIN_CHARS_FOR_DENSITY,
+} from "../../src/config/thresholds.js";
 
 // ---------- helpers ----------
 
@@ -77,6 +83,9 @@ describe("matchSignals", () => {
     });
     expect(s!.spanStart).toBe(prefix.length);
     expect(s!.spanEnd).toBe(prefix.length + CONTACT_KW.length);
+    // Phase C-revisit: every mechanical match must carry `source: "keyword"`
+    // so outputs/ can distinguish it from Claude-discovered signals.
+    expect(s!.source).toBe("keyword");
   });
 
   it("finds a single keyword match in a comment", () => {
@@ -105,6 +114,7 @@ describe("matchSignals", () => {
     });
     expect(s!.spanStart).toBe(commentPrefix.length);
     expect(s!.spanEnd).toBe(commentPrefix.length + PAYMENT_KW.length);
+    expect(s!.source).toBe("keyword");
   });
 
   it("emits one signal per occurrence when a keyword repeats in the body", () => {
@@ -131,6 +141,7 @@ describe("matchSignals", () => {
 
     for (const s of contactHits) {
       expect(s.spanEnd).toBe(s.spanStart + CONTACT_KW.length);
+      expect(s.source).toBe("keyword");
     }
   });
 
@@ -214,5 +225,196 @@ describe("computeSignalDensity", () => {
     const expected = (signals.length * 1000) / totalChars;
 
     expect(density).toBeCloseTo(expected, 10);
+  });
+});
+
+// ---------- mergeSignals ----------
+
+// Helpers for building hand-crafted ConversionSignal instances. These do
+// NOT go through matchSignals — the merge tests need to pin specific spans
+// and sources directly.
+function kwSignal(opts: {
+  kind?: ConversionSignal["kind"];
+  keyword?: string;
+  location: ConversionSignal["location"];
+  spanStart: number;
+  spanEnd: number;
+}): ConversionSignal {
+  return {
+    kind: opts.kind ?? "contact-request",
+    keyword: opts.keyword ?? "kw",
+    location: opts.location,
+    spanStart: opts.spanStart,
+    spanEnd: opts.spanEnd,
+    source: "keyword",
+  };
+}
+
+function claudeSignal(opts: {
+  kind?: ConversionSignal["kind"];
+  keyword?: string;
+  location: ConversionSignal["location"];
+  spanStart: number;
+  spanEnd: number;
+}): ConversionSignal {
+  return {
+    kind: opts.kind ?? "contact-request",
+    keyword: opts.keyword ?? "ev",
+    location: opts.location,
+    spanStart: opts.spanStart,
+    spanEnd: opts.spanEnd,
+    source: "claude",
+  };
+}
+
+describe("mergeSignals", () => {
+  it("passes everything through when nothing overlaps", () => {
+    const bodyLoc: ConversionSignal["location"] = {
+      kind: "answer-body",
+      answerId: "a1",
+    };
+    // Two keyword signals on disjoint spans.
+    const kw1 = kwSignal({
+      keyword: "k1",
+      location: bodyLoc,
+      spanStart: 0,
+      spanEnd: 3,
+    });
+    const kw2 = kwSignal({
+      keyword: "k2",
+      location: bodyLoc,
+      spanStart: 10,
+      spanEnd: 13,
+    });
+    // Two claude signals on spans that don't overlap kw1 or kw2.
+    const cl1 = claudeSignal({
+      keyword: "c1",
+      location: bodyLoc,
+      spanStart: 20,
+      spanEnd: 23,
+    });
+    const cl2 = claudeSignal({
+      keyword: "c2",
+      location: bodyLoc,
+      spanStart: 30,
+      spanEnd: 33,
+    });
+
+    const merged = mergeSignals([kw1, kw2], [cl1, cl2]);
+
+    expect(merged).toHaveLength(4);
+    // Order: keyword inputs first (in order), then claude inputs (in order).
+    expect(merged[0]).toBe(kw1);
+    expect(merged[1]).toBe(kw2);
+    expect(merged[2]).toBe(cl1);
+    expect(merged[3]).toBe(cl2);
+  });
+
+  it("drops a claude signal that overlaps with a keyword signal at the same location", () => {
+    const bodyLoc: ConversionSignal["location"] = {
+      kind: "answer-body",
+      answerId: "a1",
+    };
+    const kw = kwSignal({
+      keyword: "kw",
+      location: bodyLoc,
+      spanStart: 10,
+      spanEnd: 14,
+    });
+    const cl = claudeSignal({
+      keyword: "ev",
+      location: bodyLoc,
+      spanStart: 12,
+      spanEnd: 18, // overlaps [10, 14]
+    });
+
+    const merged = mergeSignals([kw], [cl]);
+
+    expect(merged).toHaveLength(1);
+    expect(merged[0]).toBe(kw);
+  });
+
+  it("does NOT dedup when overlapping spans live at different locations", () => {
+    // Same numerical span but one is in the answer body and the other is
+    // in a comment — they're not actually the same span.
+    const bodyLoc: ConversionSignal["location"] = {
+      kind: "answer-body",
+      answerId: "a1",
+    };
+    const commentLoc: ConversionSignal["location"] = {
+      kind: "comment",
+      commentId: "c1",
+      answerId: "a1",
+    };
+    const kw = kwSignal({
+      location: bodyLoc,
+      spanStart: 0,
+      spanEnd: 4,
+    });
+    const cl = claudeSignal({
+      location: commentLoc,
+      spanStart: 0,
+      spanEnd: 6,
+    });
+
+    const merged = mergeSignals([kw], [cl]);
+
+    expect(merged).toHaveLength(2);
+    expect(merged).toContain(kw);
+    expect(merged).toContain(cl);
+  });
+
+  it("keeps two claude signals that overlap each other (dedup is keyword-vs-claude only)", () => {
+    const bodyLoc: ConversionSignal["location"] = {
+      kind: "answer-body",
+      answerId: "a1",
+    };
+    const cl1 = claudeSignal({
+      keyword: "first",
+      location: bodyLoc,
+      spanStart: 0,
+      spanEnd: 5,
+    });
+    const cl2 = claudeSignal({
+      keyword: "second",
+      location: bodyLoc,
+      spanStart: 3,
+      spanEnd: 8, // overlaps cl1
+    });
+
+    const merged = mergeSignals([], [cl1, cl2]);
+
+    expect(merged).toHaveLength(2);
+    expect(merged[0]).toBe(cl1);
+    expect(merged[1]).toBe(cl2);
+  });
+});
+
+// ---------- confidenceWeightedDensity ----------
+
+describe("confidenceWeightedDensity", () => {
+  it("formula: rawDensity * (FLOOR + (1-FLOOR) * confidence)", () => {
+    const FLOOR = CONFIDENCE_WEIGHT_FLOOR;
+
+    // confidence = 1.0 → multiplier collapses to 1.0 → output equals raw.
+    expect(confidenceWeightedDensity(10, 1.0)).toBeCloseTo(10, 10);
+
+    // confidence = 0.0 → multiplier is FLOOR.
+    expect(confidenceWeightedDensity(10, 0.0)).toBeCloseTo(10 * FLOOR, 10);
+
+    // confidence = 0.5 → midpoint blend.
+    expect(confidenceWeightedDensity(10, 0.5)).toBeCloseTo(
+      10 * (FLOOR + (1 - FLOOR) * 0.5),
+      10,
+    );
+  });
+
+  it("clamps confidence: negative values behave like 0, > 1 like 1", () => {
+    const FLOOR = CONFIDENCE_WEIGHT_FLOOR;
+
+    // -1 should clamp to 0 → multiplier = FLOOR.
+    expect(confidenceWeightedDensity(10, -1)).toBeCloseTo(10 * FLOOR, 10);
+    // 2 should clamp to 1 → multiplier = 1.
+    expect(confidenceWeightedDensity(10, 2)).toBeCloseTo(10, 10);
   });
 });

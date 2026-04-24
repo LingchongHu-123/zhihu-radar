@@ -22,7 +22,10 @@
 import type { Answer, Comment } from "../types/answer.js";
 import type { ConversionSignal } from "../types/signal.js";
 import { SIGNAL_KEYWORDS, SIGNAL_KINDS_IN_ORDER } from "../config/signals.js";
-import { MIN_CHARS_FOR_DENSITY } from "../config/thresholds.js";
+import {
+  CONFIDENCE_WEIGHT_FLOOR,
+  MIN_CHARS_FOR_DENSITY,
+} from "../config/thresholds.js";
 
 /**
  * Find every keyword match across the answer body and each comment.
@@ -47,6 +50,7 @@ export function matchSignals(
           location: { kind: "answer-body", answerId: answer.id },
           spanStart,
           spanEnd: spanStart + keyword.length,
+          source: "keyword",
         });
       }
       // Then each comment, in input order.
@@ -62,6 +66,7 @@ export function matchSignals(
             },
             spanStart,
             spanEnd: spanStart + keyword.length,
+            source: "keyword",
           });
         }
       }
@@ -69,6 +74,72 @@ export function matchSignals(
   }
 
   return out;
+}
+
+/**
+ * Merge mechanical (keyword) signals with LLM-discovered (claude) signals.
+ *
+ * Dedup policy: if a claude signal's span overlaps with any keyword
+ * signal at the SAME location, the claude signal is dropped — keyword
+ * hits are byte-precise and unambiguously categorized, so they win every
+ * tie. Two claude signals overlapping each other are kept (Claude is
+ * usually right when it returns the same span twice; if it isn't, the
+ * upstream parser should have already dedup'd by evidence string).
+ *
+ * Output order: every keyword signal in its input order first, then
+ * every surviving claude signal in its input order. This preserves the
+ * "keyword scan walked in SIGNAL_KINDS_IN_ORDER" invariant for the
+ * mechanical half, and keeps Claude's chosen ordering intact for the
+ * LLM half — useful when Claude lists signals in salience order.
+ */
+export function mergeSignals(
+  keywordSignals: ReadonlyArray<ConversionSignal>,
+  claudeSignals: ReadonlyArray<ConversionSignal>,
+): ReadonlyArray<ConversionSignal> {
+  const out: ConversionSignal[] = [...keywordSignals];
+  for (const c of claudeSignals) {
+    if (!keywordSignals.some((k) => sameLocation(k, c) && spansOverlap(k, c))) {
+      out.push(c);
+    }
+  }
+  return out;
+}
+
+/**
+ * Confidence-weighted density. Phase C-revisit: keyword density alone
+ * over-credits keyword false positives; mixing in Claude's intent
+ * confidence damps those down without zeroing out genuine mechanical
+ * hits (that's what CONFIDENCE_WEIGHT_FLOOR is for — see thresholds.ts).
+ *
+ * The formula intentionally lives next to computeSignalDensity, because
+ * both are about "how heavy is the buying intent on this answer" and
+ * tuning one without seeing the other is asking for trouble.
+ */
+export function confidenceWeightedDensity(
+  rawDensity: number,
+  intentConfidence: number,
+): number {
+  // Clamp confidence to [0, 1] defensively. parseClaudeResponse already
+  // rejects out-of-range values, but a defensive clamp here means a
+  // future caller from runtime/ can't accidentally crater a ranking
+  // by feeding in garbage.
+  const c = Math.max(0, Math.min(1, intentConfidence));
+  return rawDensity * (CONFIDENCE_WEIGHT_FLOOR + (1 - CONFIDENCE_WEIGHT_FLOOR) * c);
+}
+
+function sameLocation(a: ConversionSignal, b: ConversionSignal): boolean {
+  if (a.location.kind !== b.location.kind) return false;
+  if (a.location.kind === "answer-body" && b.location.kind === "answer-body") {
+    return a.location.answerId === b.location.answerId;
+  }
+  if (a.location.kind === "comment" && b.location.kind === "comment") {
+    return a.location.commentId === b.location.commentId;
+  }
+  return false;
+}
+
+function spansOverlap(a: ConversionSignal, b: ConversionSignal): boolean {
+  return a.spanStart < b.spanEnd && b.spanStart < a.spanEnd;
 }
 
 /**

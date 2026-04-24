@@ -23,13 +23,30 @@ export type SignalLocation =
   | { kind: "comment"; commentId: string; answerId: string };
 
 /**
+ * Origin of a matched signal. "keyword" means a literal hit against
+ * SIGNAL_KEYWORDS in config/; "claude" means the LLM flagged this span
+ * as a buying-intent phrase that the keyword list missed (e.g. "v我",
+ * "在吗"). Kept as an explicit field so outputs/ can show receipts that
+ * distinguish "we matched this verbatim" from "Claude judged this".
+ *
+ * Optional for backward compatibility with older callers that only
+ * produce mechanical signals; new code paths SHOULD always set it.
+ */
+export type SignalSource = "keyword" | "claude";
+
+/**
  * A single matched signal. Keyword-level granularity so outputs/ can show
  * receipts ("this was flagged because the comment said '怎么联系'").
  */
 export type ConversionSignal = {
   /** Category — which kind of intent this matched. */
   kind: SignalKind;
-  /** The exact keyword or phrase that matched. Taken from config/. */
+  /**
+   * The matched phrase. For keyword signals, this is the literal entry
+   * from SIGNAL_KEYWORDS. For claude signals, this is the original
+   * substring of the answer/comment that Claude flagged (NOT a
+   * paraphrase — span/text consistency is enforced upstream).
+   */
   keyword: string;
   /** Where it was found. */
   location: SignalLocation;
@@ -37,4 +54,6 @@ export type ConversionSignal = {
   spanStart: number;
   /** Character offset where the match ends (exclusive). */
   spanEnd: number;
+  /** How this signal was discovered. Optional only for backward compat. */
+  source?: SignalSource;
 };

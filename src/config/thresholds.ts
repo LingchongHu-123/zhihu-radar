@@ -46,3 +46,17 @@ export const MAX_TOPICS_PER_REPORT = 20;
  * "one match in a 10-char comment = infinity density" pathology.
  */
 export const MIN_CHARS_FOR_DENSITY = 100;
+
+/**
+ * Floor weight for the confidence-weighted density formula
+ *
+ *   adjusted = rawDensity × (FLOOR + (1 - FLOOR) × intentConfidence)
+ *
+ * At confidence 0.0 the answer is still credited at FLOOR× the raw
+ * density (i.e. mechanical signals matter even when Claude bailed); at
+ * 1.0 it gets the full raw density. The floor exists because keyword
+ * hits are precise — even with low Claude confidence we don't want to
+ * zero them out completely. Tune by editing this number; every consumer
+ * reads it from here, so there is no other place to change.
+ */
+export const CONFIDENCE_WEIGHT_FLOOR = 0.3;

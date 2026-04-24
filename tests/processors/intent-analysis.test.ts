@@ -19,7 +19,7 @@ import {
   type ClaudeClient,
 } from "../../src/processors/intent-analysis.js";
 import type { Answer, Comment } from "../../src/types/answer.js";
-import { SIGNAL_KINDS_IN_ORDER } from "../../src/config/signals.js";
+import { SIGNAL_KEYWORDS, SIGNAL_KINDS_IN_ORDER } from "../../src/config/signals.js";
 
 // ---------- helpers ----------
 
@@ -73,6 +73,12 @@ function makeMockClient(responseText: string): {
 }
 
 const FIXED_NOW = new Date("2026-04-24T12:00:00.000Z");
+
+// A short non-keyword phrase used as Claude-discovered evidence in the
+// discoveredSignals tests below. Picked to NOT appear in any
+// SIGNAL_KEYWORDS list, so that planting it in a body produces zero
+// keyword hits and any resulting signal is unambiguously claude-sourced.
+const NON_KEYWORD_EVIDENCE = "咋整啊";
 
 // ---------- buildStablePrefix ----------
 
@@ -141,6 +147,14 @@ describe("buildClaudeRequest", () => {
     const textB = reqB.messages[0]!.content[0]!.text;
     expect(textA).not.toBe(textB);
   });
+
+  // Phase C-revisit: max_tokens bumped from 512 → 1024 to make room for
+  // the discoveredSignals array. Pin it so any silent regression trips here.
+  it("uses max_tokens = 1024 (bumped for discoveredSignals)", () => {
+    const answer = makeAnswer();
+    const req = buildClaudeRequest(answer, []);
+    expect(req.max_tokens).toBe(1024);
+  });
 });
 
 // ---------- buildVolatilePayload ----------
@@ -154,6 +168,28 @@ describe("buildVolatilePayload", () => {
     const payload = buildVolatilePayload(answer, comments);
     expect(payload).toContain("正文关键字XYZ");
     expect(payload).toContain("评论关键字ABC");
+  });
+
+  it("labels comments with [Comment #N] markers in input order", () => {
+    const answer = makeAnswer({ body: "答案正文。" });
+    const comments: ReadonlyArray<Comment> = [
+      makeComment({ id: "c-0", body: "first comment body" }),
+      makeComment({ id: "c-1", body: "second comment body" }),
+      makeComment({ id: "c-2", body: "third comment body" }),
+    ];
+    const payload = buildVolatilePayload(answer, comments);
+
+    expect(payload).toContain("[Comment #0]");
+    expect(payload).toContain("[Comment #1]");
+    expect(payload).toContain("[Comment #2]");
+
+    // Must appear in numeric order (matches input order).
+    const i0 = payload.indexOf("[Comment #0]");
+    const i1 = payload.indexOf("[Comment #1]");
+    const i2 = payload.indexOf("[Comment #2]");
+    expect(i0).toBeGreaterThanOrEqual(0);
+    expect(i1).toBeGreaterThan(i0);
+    expect(i2).toBeGreaterThan(i1);
   });
 });
 
@@ -174,7 +210,7 @@ describe("analyzeAnswer", () => {
     ];
 
     const { client } = makeMockClient(
-      '{"intentSummary":"读者在找靠谱的中介","intentConfidence":0.8}',
+      '{"intentSummary":"读者在找靠谱的中介","intentConfidence":0.8,"discoveredSignals":[]}',
     );
 
     const result = await analyzeAnswer(answer, comments, {
@@ -197,7 +233,7 @@ describe("analyzeAnswer", () => {
   it("passes the built request (with the stable prefix) to the client", async () => {
     const answer = makeAnswer();
     const { client, requests } = makeMockClient(
-      '{"intentSummary":"x","intentConfidence":0.5}',
+      '{"intentSummary":"x","intentConfidence":0.5,"discoveredSignals":[]}',
     );
 
     await analyzeAnswer(answer, [], { clientImpl: client, now: FIXED_NOW });
@@ -209,7 +245,7 @@ describe("analyzeAnswer", () => {
   it("tolerates JSON surrounded by prose", async () => {
     const answer = makeAnswer();
     const { client } = makeMockClient(
-      'Sure! {"intentSummary":"读者想私信联系","intentConfidence":0.55} done.',
+      'Sure! {"intentSummary":"读者想私信联系","intentConfidence":0.55,"discoveredSignals":[]} done.',
     );
 
     const result = await analyzeAnswer(answer, [], {
@@ -235,7 +271,7 @@ describe("analyzeAnswer", () => {
   it("rejects when intentConfidence is outside [0, 1]", async () => {
     const answer = makeAnswer();
     const { client } = makeMockClient(
-      '{"intentSummary":"x","intentConfidence":1.5}',
+      '{"intentSummary":"x","intentConfidence":1.5,"discoveredSignals":[]}',
     );
 
     await expect(
@@ -246,7 +282,7 @@ describe("analyzeAnswer", () => {
   it("uses opts.now for analyzedAt (no hidden clock read)", async () => {
     const answer = makeAnswer();
     const { client } = makeMockClient(
-      '{"intentSummary":"x","intentConfidence":0.1}',
+      '{"intentSummary":"x","intentConfidence":0.1,"discoveredSignals":[]}',
     );
     const explicitNow = new Date("2026-04-24T12:00:00.000Z");
 
@@ -256,5 +292,236 @@ describe("analyzeAnswer", () => {
     });
 
     expect(result.analyzedAt).toBe("2026-04-24T12:00:00.000Z");
+  });
+});
+
+// ---------- discoveredSignals → ConversionSignal mapping ----------
+
+describe("analyzeAnswer discoveredSignals", () => {
+  it("merges a discovered signal whose evidence is found verbatim in the answer body", async () => {
+    // Pin the offset of the evidence string deterministically.
+    // Body uses no SIGNAL_KEYWORDS phrases, so the only signal that can
+    // possibly come out is the claude-discovered one we inject below.
+    const prefix = "无关前缀文字XX";
+    const evidence = NON_KEYWORD_EVIDENCE;
+    const suffix = "无关后缀文字YY";
+    const body = `${prefix}${evidence}${suffix}`;
+    const answer = makeAnswer({ id: "ans-disc", body });
+
+    const expectedStart = body.indexOf(evidence);
+    expect(expectedStart).toBe(prefix.length);
+
+    const { client } = makeMockClient(
+      JSON.stringify({
+        intentSummary: "读者在试探性联系",
+        intentConfidence: 0.6,
+        discoveredSignals: [
+          { kind: "contact-request", evidence, location: "answer-body" },
+        ],
+      }),
+    );
+
+    const result = await analyzeAnswer(answer, [], {
+      clientImpl: client,
+      now: FIXED_NOW,
+    });
+
+    const claudeHits = result.signals.filter((s) => s.source === "claude");
+    expect(claudeHits).toHaveLength(1);
+    const [hit] = claudeHits;
+    expect(hit!.keyword).toBe(evidence);
+    expect(hit!.kind).toBe("contact-request");
+    expect(hit!.location).toEqual({ kind: "answer-body", answerId: "ans-disc" });
+    expect(hit!.spanStart).toBe(expectedStart);
+    expect(hit!.spanEnd).toBe(expectedStart + evidence.length);
+  });
+
+  it("resolves location 'comment-N' to the matching comment by index", async () => {
+    const answer = makeAnswer({ id: "ans-X", body: "答案正文。" });
+    const evidence = "独特短语ZZZ"; // engineered to live only in comment 1
+    const comments: ReadonlyArray<Comment> = [
+      makeComment({ id: "c-A", answerId: "ans-X", body: "评论零内容" }),
+      makeComment({
+        id: "c-B",
+        answerId: "ans-X",
+        body: `开头一些字${evidence}结尾`,
+      }),
+    ];
+
+    const { client } = makeMockClient(
+      JSON.stringify({
+        intentSummary: "...",
+        intentConfidence: 0.4,
+        discoveredSignals: [
+          { kind: "contact-request", evidence, location: "comment-1" },
+        ],
+      }),
+    );
+
+    const result = await analyzeAnswer(answer, comments, {
+      clientImpl: client,
+      now: FIXED_NOW,
+    });
+
+    const claudeHits = result.signals.filter((s) => s.source === "claude");
+    expect(claudeHits).toHaveLength(1);
+    const [hit] = claudeHits;
+    expect(hit!.location).toEqual({
+      kind: "comment",
+      commentId: "c-B",
+      answerId: "ans-X",
+    });
+    expect(hit!.keyword).toBe(evidence);
+  });
+
+  it("drops a discovered signal whose evidence is paraphrased (not byte-found)", async () => {
+    const answer = makeAnswer({
+      id: "ans-P",
+      body: "完全不含任何买家信号的普通正文段落。",
+    });
+
+    const { client } = makeMockClient(
+      JSON.stringify({
+        intentSummary: "...",
+        intentConfidence: 0.2,
+        discoveredSignals: [
+          // Evidence string does not appear verbatim anywhere in body/comments.
+          {
+            kind: "contact-request",
+            evidence: "this string is nowhere in the source",
+            location: "answer-body",
+          },
+        ],
+      }),
+    );
+
+    const result = await analyzeAnswer(answer, [], {
+      clientImpl: client,
+      now: FIXED_NOW,
+    });
+
+    const claudeHits = result.signals.filter((s) => s.source === "claude");
+    expect(claudeHits).toHaveLength(0);
+  });
+
+  it("drops a discovered signal whose kind is not in SIGNAL_KINDS_IN_ORDER", async () => {
+    const evidence = NON_KEYWORD_EVIDENCE;
+    const answer = makeAnswer({
+      id: "ans-K",
+      body: `前缀${evidence}后缀`,
+    });
+
+    const { client } = makeMockClient(
+      JSON.stringify({
+        intentSummary: "...",
+        intentConfidence: 0.3,
+        discoveredSignals: [
+          { kind: "spam-signal", evidence, location: "answer-body" },
+        ],
+      }),
+    );
+
+    const result = await analyzeAnswer(answer, [], {
+      clientImpl: client,
+      now: FIXED_NOW,
+    });
+
+    const claudeHits = result.signals.filter((s) => s.source === "claude");
+    expect(claudeHits).toHaveLength(0);
+  });
+
+  it("drops a discovered signal whose comment-N index is out of range", async () => {
+    const answer = makeAnswer({ id: "ans-OOB", body: "答案正文。" });
+    const comments: ReadonlyArray<Comment> = [
+      makeComment({ id: "c-0", body: "comment 0" }),
+      makeComment({ id: "c-1", body: "comment 1 contains x" }),
+    ];
+
+    const { client } = makeMockClient(
+      JSON.stringify({
+        intentSummary: "...",
+        intentConfidence: 0.3,
+        discoveredSignals: [
+          // Only 2 comments exist (indices 0, 1); 99 is out of range.
+          { kind: "contact-request", evidence: "x", location: "comment-99" },
+        ],
+      }),
+    );
+
+    const result = await analyzeAnswer(answer, comments, {
+      clientImpl: client,
+      now: FIXED_NOW,
+    });
+
+    const claudeHits = result.signals.filter((s) => s.source === "claude");
+    expect(claudeHits).toHaveLength(0);
+  });
+
+  it("treats missing discoveredSignals as empty (no throw, backward compat)", async () => {
+    const answer = makeAnswer({
+      id: "ans-BC",
+      body: "完全不含任何关键词的正文。",
+    });
+
+    // Note: no discoveredSignals key at all.
+    const { client } = makeMockClient(
+      '{"intentSummary":"summary","intentConfidence":0.4}',
+    );
+
+    const result = await analyzeAnswer(answer, [], {
+      clientImpl: client,
+      now: FIXED_NOW,
+    });
+
+    expect(result.intentSummary).toBe("summary");
+    expect(result.intentConfidence).toBe(0.4);
+    const claudeHits = result.signals.filter((s) => s.source === "claude");
+    expect(claudeHits).toHaveLength(0);
+  });
+
+  it("mergeSignals integration: a discovered signal that overlaps a keyword span is dropped", async () => {
+    // Plant a CONFIG keyword at a known offset in the answer body.
+    const KEYWORD = SIGNAL_KEYWORDS["contact-request"][0]!; // e.g. "怎么联系"
+    const prefix = "AAA";
+    const suffix = "BBB";
+    const body = `${prefix}${KEYWORD}${suffix}`;
+    const keywordStart = body.indexOf(KEYWORD);
+    expect(keywordStart).toBe(prefix.length);
+
+    const answer = makeAnswer({ id: "ans-INT", body });
+
+    // Claude returns a discoveredSignal whose evidence is the keyword
+    // itself plus the suffix — verbatim in body, overlapping the keyword
+    // span. mergeSignals should drop the claude signal because it overlaps
+    // a keyword signal at the same location.
+    const evidence = `${KEYWORD}${suffix}`;
+    expect(body.indexOf(evidence)).toBe(keywordStart); // sanity: same start
+
+    const { client } = makeMockClient(
+      JSON.stringify({
+        intentSummary: "...",
+        intentConfidence: 0.7,
+        discoveredSignals: [
+          { kind: "contact-request", evidence, location: "answer-body" },
+        ],
+      }),
+    );
+
+    const result = await analyzeAnswer(answer, [], {
+      clientImpl: client,
+      now: FIXED_NOW,
+    });
+
+    // Exactly one signal at the keyword's span; it must be the keyword one.
+    const atSpan = result.signals.filter(
+      (s) => s.spanStart === keywordStart && s.location.kind === "answer-body",
+    );
+    expect(atSpan).toHaveLength(1);
+    expect(atSpan[0]!.source).toBe("keyword");
+    expect(atSpan[0]!.keyword).toBe(KEYWORD);
+
+    // And no claude-source signals overall (the only candidate was dropped).
+    const claudeHits = result.signals.filter((s) => s.source === "claude");
+    expect(claudeHits).toHaveLength(0);
   });
 });
