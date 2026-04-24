@@ -71,6 +71,34 @@ other.** This is mechanically enforced by `.dependency-cruiser.cjs`. Read
 5. **After resolving a non-obvious error, append a short note to
    `docs/agent-learnings.md`** so the next agent doesn't re-walk the same path.
 
+## When You Hit Ambiguity
+
+Distinct from errors. An ambiguity is a question the docs and maps don't
+answer that you need answered before proceeding (e.g. "what file naming
+convention?", "should this processor return X or Y?", "is the planned
+next phase still the right next step given what we just learned?").
+Reflexes:
+
+1. **Don't patch at the wrong layer.** If `validators/` needs a field
+   that `types/` doesn't expose, extend `types/` — don't fork the field
+   locally in `validators/`. A bug rooted in layer X is fixed in layer X.
+   Same direction either way: do not paper over an upstream gap with a
+   downstream workaround, and do not invent a downstream workaround for
+   what is genuinely an upstream design call.
+2. **Surface map-level questions before low-layer work.** A question
+   that changes the shape of downstream layers must be asked before
+   writing code that assumes an answer. The cost of asking is one
+   sentence; the cost of building the wrong shape is a refactor.
+3. **Ask, don't pre-answer.** When listing questions for the user, list
+   them as questions, not as "here are the questions and the answers
+   I'd pick". Pre-bundled answers anchor the user away from reframing
+   the question — and reframing the question is often the highest-value
+   thing they can do.
+4. **If the user isn't around**: if the call is reversible, pick,
+   document the call inline, and move on. If it's irreversible or
+   load-bearing, stop and wait. Never ship a silent guess on something
+   load-bearing.
+
 ## Subagents
 
 Narrow-scope dev agents live in `.claude/agents/`. Delegate to them instead
