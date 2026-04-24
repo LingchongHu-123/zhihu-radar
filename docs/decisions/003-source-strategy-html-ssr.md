@@ -105,6 +105,29 @@ implementation tasks and not part of this decision.
   signature problem to a different host. Held in reserve as a fallback
   if both SSR and the web API become unworkable.
 
+## Amendment 2026-04-23 — comments via `/api/v4/comment_v5`
+
+The "Do not call `/api/v4/...` endpoints" rule above was written when
+every known `/api/v4` path observed from this machine was returning the
+40362 anti-bot wall. Phase A followup probing (see
+`scripts/probe-comments.ts`) established that
+`GET /api/v4/comment_v5/answers/<aid>/root_comment` is **not** walled —
+it returns JSON unauthenticated and unsigned, no `x-zse-96` required.
+And since the SSR question page never hydrates its
+`entities.comments` map in practice (it is always `{}`), comments
+*must* come from some XHR endpoint. `comment_v5` is the one that
+works without participating in the signing arms race this ADR was
+written to avoid.
+
+Therefore: **comments are a scoped exception to the `/api/v4`
+prohibition.** `src/sources/zhihu-answers.ts::fetchCommentsForAnswer`
+calls this specific endpoint. The prohibition still stands for the
+answer-list and question-detail endpoints, which is where the 40362
+wall actually lives. If the `comment_v5` endpoint ever starts
+demanding a signature, revisit this amendment *before* shipping any
+reverse-engineering effort — the failure mode there is identical to
+the one this ADR was drafted to sidestep.
+
 ## Revisit if
 
 - 知乎 removes SSR hydration — i.e. the question page arrives with
