@@ -17,14 +17,14 @@ in the Decisions log at the bottom.
 ## Current layer status
 
 ```
-types/       ████████░░ 80%  shapes defined, not validated against real data
+types/       ██████████ 100% answers + comments carved from real fixtures
 config/      █████████░ 90%  signals/thresholds/env all present
-sources/     ████░░░░░░ 40%  written, zero tests, zero real-data fixtures
-validators/  ░░░░░░░░░░  0%
-processors/  ░░░░░░░░░░  0%  (ADR 002 sets the caching rule)
-outputs/     ░░░░░░░░░░  0%
+sources/     ██████████ 100% both fetchers implemented + tested against real fixtures
+validators/  ░░░░░░░░░░ 0%   next phase (Phase B)
+processors/  ░░░░░░░░░░ 0%   (ADR 002 sets the caching rule)
+outputs/     ░░░░░░░░░░ 0%
 runtime/     ██░░░░░░░░ 20%  (placeholder cli.ts only)
-tests/       ░░░░░░░░░░  0%  no fixtures, no tests
+tests/       ██████░░░░ 60%  sources covered; validators/processors/outputs/runtime still 0
 ```
 
 ## Build order (do not skip)
@@ -143,3 +143,10 @@ with a closing note.
   sources/ landed. Order is sources → validators → processors → outputs
   because each downstream layer depends on the shape of the upstream's
   fixtures; building out-of-order means re-work.
+- 2026-04-23 — Phase A (including its comments followup) closed.
+  Answers fixture + comments-page1/last fixtures pinned under
+  `tests/fixtures/zhihu/`; `ZhihuAnswerWire` + `ZhihuCommentWire` +
+  envelope types carved from real samples; both `fetchAnswersForQuestion`
+  (SSR parse) and `fetchCommentsForAnswer` (`/api/v4/comment_v5`, the
+  one un-walled API path — see ADR 003 amendment) ship with 19 contract
+  tests. `pnpm check` + `pnpm test` green. Next entry point is Phase B.
