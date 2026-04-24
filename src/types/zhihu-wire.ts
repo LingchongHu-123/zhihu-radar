@@ -1,18 +1,28 @@
-// Wire-level types for 知乎's SSR `<script id="js-initialData">` blob.
+// Wire-level types for 知乎's SSR `<script id="js-initialData">` blob
+// AND 知乎's `/api/v4/comment_v5/...` XHR responses.
 //
 // These are NOT domain types. They mirror, verbatim, the shape that
-// 知乎 serializes over the wire (camelCase, all of their internal
-// bookkeeping fields intact). The canonical domain equivalents live in
-// `./answer.ts` (`Answer`, `Comment`); a follow-up mapper in the
-// `sources/` layer will translate `ZhihuAnswerWire` → `Answer` etc.
+// 知乎 serializes over the wire. The SSR blob is camelCase; the
+// `comment_v5` XHR is snake_case — each half of this file keeps the
+// casing of its origin so that "the wire type matches reality" stays
+// literally true. The canonical domain equivalents live in
+// `./answer.ts` (`Answer`, `Comment`); mappers in the `sources/` layer
+// will translate wire → domain (including the case flip for comments).
 //
-// Shape was knitted by inspecting the captured fixture
-// `tests/fixtures/zhihu/question-292527529-initialData.json`
-// (three answers, one question, zero users/comments at SSR time).
+// Shape sources:
+//   - SSR blob: `tests/fixtures/zhihu/question-292527529-initialData.json`
+//     (three answers, one question, zero users/comments at SSR time).
+//   - comment_v5 XHR: `tests/fixtures/zhihu/answer-2543422324-comments-page1.json`
+//     (10 root comments) and `…-comments-last.json` (4 root comments,
+//     `paging.is_end: true`). Endpoint:
+//     `GET /api/v4/comment_v5/answers/<aid>/root_comment`.
 //
-// Why we parse SSR HTML instead of hitting /api/v4 directly: 知乎 now
-// returns a 40362 anti-bot wall on unauthenticated REST calls, so the
-// page-embedded `js-initialData` JSON is the path of least resistance.
+// Why we parse SSR HTML instead of hitting /api/v4 directly for the
+// answer body: 知乎 returns a 40362 anti-bot wall on unauthenticated
+// REST calls to the answer endpoints, so the page-embedded
+// `js-initialData` JSON is the path of least resistance. Comments,
+// however, are lazy-loaded by the page via `comment_v5` and that
+// endpoint does serve unauthenticated-enough responses for our use.
 // See `docs/decisions/003-*.md` (ADR 003) for the full rationale.
 //
 // Fields we actively consume are typed precisely. Fields we don't
@@ -249,22 +259,217 @@ export type ZhihuAnswerWire = {
 };
 
 /* -------------------------------------------------------------------------- */
-/*                                  Comments                                  */
+/*                          Comments (comment_v5 XHR)                         */
 /* -------------------------------------------------------------------------- */
 
-/**
- * One value under `entities.comments[<cid>]`.
- *
- * TODO: the captured SSR fixture has `entities.comments = {}` (comments
- * are lazy-loaded by a separate XHR), so we have no real sample to
- * carve against. Leave this as a permissive record until we capture a
- * comments fixture, then replace with a precise shape. Do NOT fabricate
- * fields in the meantime — the whole point of a wire type is that it
- * matches reality.
+/*
+ * Everything below mirrors the snake_case response body of
+ *   GET https://www.zhihu.com/api/v4/comment_v5/answers/<aid>/root_comment
+ * Do not rename fields to camelCase here — the sources-layer mapper is
+ * the single place that case-flips wire → domain.
  */
-export type ZhihuCommentWire = Record<string, unknown>;
 
-/** One value under `entities.lineComments[<cid>]`. Same TODO as above. */
+/**
+ * The `author` sub-object on a `comment_v5` comment. Distinct from
+ * `ZhihuAuthorWire` (which is the SSR camelCase author) because this
+ * endpoint ships snake_case plus a different slice of sub-objects
+ * (`vip_info`, `kvip_info`, `level_info`, `ring_info`, etc.).
+ *
+ * Precise for fields the mapper reads (`id`, `name`, `url_token`,
+ * `headline`); permissive elsewhere because we haven't committed to
+ * consuming nested shapes like `badge_v2` or the vip bags.
+ */
+export type ZhihuCommentAuthorWire = {
+  /** Stable user id (hex string). Surfaces into domain `Comment.authorId`. */
+  readonly id: string;
+  /** Short slug used in URLs; may be an auto-generated `user-xxxxxxxx`. */
+  readonly url_token: string;
+  /** Display name. May be an auto-generated `user-xxxxxxxx` for anon/stub accounts. */
+  readonly name: string;
+  /** Self-written headline. Often empty string. */
+  readonly headline: string;
+  /* -------- fields we acknowledge but do not consume ---------- */
+  readonly avatar_url: string;
+  readonly avatar_url_template: string;
+  readonly is_org: boolean;
+  /** Observed value: `"people"`. */
+  readonly type: string;
+  readonly url: string;
+  /** Observed value: `"people"`. */
+  readonly user_type: string;
+  /** -1/0/1 per 知乎 convention; kept wide. */
+  readonly gender: number;
+  readonly is_advertiser: boolean;
+  readonly badge_v2: Record<string, unknown>;
+  /**
+   * Present on every fixture author, but the "no medal" case ships all
+   * empty strings rather than omitting the object. Kept permissive.
+   */
+  readonly exposed_medal: Record<string, unknown>;
+  readonly vip_info: Record<string, unknown>;
+  readonly kvip_info: Record<string, unknown>;
+  /** Fixture had `null` on every author. */
+  readonly level_info: unknown;
+  readonly is_anonymous: boolean;
+  /** Fixture had `null` on every author. */
+  readonly ring_info: unknown;
+};
+
+/**
+ * One element of the `data` array returned by `comment_v5/…/root_comment`.
+ *
+ * Recursive via `child_comments`: 知乎 can inline up to N replies inside
+ * a root comment's `child_comments` array (every fixture row has it as
+ * an empty array, but the field is always present and the API contract
+ * is that each element has the same shape as a root comment).
+ */
+export type ZhihuCommentWire = {
+  /** Stable comment id (decimal string). */
+  readonly id: string;
+  /**
+   * Numeric member id of the author. Note this is a DIFFERENT identifier
+   * from `author.id` (hex string) — 知乎 exposes both and the mapper
+   * prefers `author.id` for joins with SSR data.
+   */
+  readonly member_id: number;
+  /** HTML-bearing body. May contain `<br>` and `<a>` tags; sources-layer strips HTML. */
+  readonly content: string;
+  /** Unix seconds. */
+  readonly created_time: number;
+  readonly like_count: number;
+  /**
+   * `"0"` means "this is a root comment, not a reply to another
+   * comment". Any other value is the id of the parent comment.
+   */
+  readonly reply_comment_id: string;
+  /**
+   * Id of the root comment of the thread this comment belongs to. For a
+   * root comment itself, this equals `id`.
+   */
+  readonly reply_root_comment_id: string;
+  readonly is_delete: boolean;
+  readonly collapsed: boolean;
+  readonly reviewing: boolean;
+  readonly child_comment_count: number;
+  /**
+   * Recursive. Empty array in every current fixture row, but always
+   * present; when populated each element is a full `ZhihuCommentWire`.
+   */
+  readonly child_comments: readonly ZhihuCommentWire[];
+  readonly author: ZhihuCommentAuthorWire;
+  /* -------- fields we acknowledge but do not consume ---------- */
+  /** Observed value: `"comment"`. */
+  readonly type: string;
+  /** Observed value: `"answer"`. */
+  readonly resource_type: string;
+  readonly url: string;
+  readonly hot: boolean;
+  readonly top: boolean;
+  readonly score: number;
+  readonly liked: boolean;
+  readonly disliked: boolean;
+  readonly dislike_count: number;
+  readonly is_author: boolean;
+  readonly can_like: boolean;
+  readonly can_dislike: boolean;
+  readonly can_delete: boolean;
+  readonly can_reply: boolean;
+  readonly can_hot: boolean;
+  readonly can_author_top: boolean;
+  readonly is_author_top: boolean;
+  readonly can_collapse: boolean;
+  readonly can_share: boolean;
+  readonly can_unfold: boolean;
+  readonly can_truncate: boolean;
+  readonly can_more: boolean;
+  readonly author_tag: readonly unknown[];
+  readonly reply_author_tag: readonly unknown[];
+  readonly content_tag: readonly unknown[];
+  /** Carries `ip_info` (region) among other things; we don't read it today. */
+  readonly comment_tag: readonly Record<string, unknown>[];
+  /** Fixture had `null` on every row. */
+  readonly child_comment_next_offset: unknown;
+  readonly is_visible_only_to_myself: boolean;
+  readonly is_gift: boolean;
+  /** Fixture had `null` on every row. */
+  readonly disclaimer_info: unknown;
+  /** Only present on some rows (e.g. `level_tag: 2`). Optional accordingly. */
+  readonly level_tag?: number;
+};
+
+/**
+ * `paging` envelope on the `comment_v5` response.
+ *
+ * IMPORTANT: `next` is populated on EVERY page — including the last one
+ * (where it loops back to the first page). Do NOT use `next` (or its
+ * presence) as a termination signal. The sole termination signal is
+ * `is_end === true`. See the fixture pair
+ * `…-comments-page1.json` (`is_end: false`) vs `…-comments-last.json`
+ * (`is_end: true`, `next` still populated).
+ */
+export type ZhihuCommentPaging = {
+  /**
+   * Sole termination signal for pagination. `true` means "do not fetch
+   * another page". Do NOT rely on `next` being absent — it is populated
+   * even on the last page (looping back to the first page's URL).
+   */
+  readonly is_end: boolean;
+  readonly is_start: boolean;
+  /**
+   * URL of the next page. Present on both `is_end: false` and
+   * `is_end: true` responses (on the latter it points back to the
+   * start), so presence is not a termination signal.
+   */
+  readonly next?: string;
+  readonly previous?: string;
+  /** Total comment count across all pages; observed on every fixture. */
+  readonly totals?: number;
+};
+
+/** Aggregate counts sub-object on a `comment_v5` page. */
+export type ZhihuCommentCounts = {
+  readonly total_counts: number;
+  readonly collapsed_counts: number;
+  readonly reviewing_counts: number;
+  readonly segment_comment_counts: number;
+};
+
+/**
+ * The whole response envelope from
+ * `GET /api/v4/comment_v5/answers/<aid>/root_comment`.
+ *
+ * Precise for the three fields the sources layer consumes (`data`,
+ * `paging`, `counts`) and permissive for the rest (`sorter`,
+ * `edit_status`, the atmosphere-voting scaffolding, etc.) — we are not
+ * lying about shapes we have not committed to reading.
+ */
+export type ZhihuCommentsPage = {
+  readonly data: readonly ZhihuCommentWire[];
+  readonly paging: ZhihuCommentPaging;
+  readonly counts: ZhihuCommentCounts;
+  /* -------- fields we acknowledge but do not consume ---------- */
+  /** Fixture had `[]` on page1 and `null` on the last page — kept permissive. */
+  readonly ad_plugin_infos: unknown;
+  readonly atmosphere_voting_config: Record<string, unknown>;
+  readonly comment_status: Record<string, unknown>;
+  readonly edit_status: Record<string, unknown>;
+  readonly header: readonly unknown[];
+  readonly is_content_author: boolean;
+  readonly is_content_rewardable: boolean;
+  readonly sorter: readonly Record<string, unknown>[];
+};
+
+/**
+ * One value under `entities.lineComments[<cid>]` in the SSR blob.
+ *
+ * TODO: no real line-comment sample has been captured yet — the
+ * captured SSR fixture has `entities.lineComments = {}`. Leaving this
+ * as a permissive record until a sample lands. Do NOT fabricate
+ * fields in the meantime; the whole point of a wire type is that it
+ * matches reality. When a sample does land, note that line-comments
+ * are a distinct feature from top-level comments (they anchor to a
+ * text range inside the answer body) and may carry different fields.
+ */
 export type ZhihuLineCommentWire = Record<string, unknown>;
 
 /* -------------------------------------------------------------------------- */
@@ -283,6 +488,17 @@ export type ZhihuEntitiesMap = {
   readonly answers: Readonly<Record<string, ZhihuAnswerWire>>;
   /** Empty in the SSR fixture; shape will be carved when a sample lands. */
   readonly users: Readonly<Record<string, Record<string, unknown>>>;
+  /**
+   * NOTE: the SSR `entities.comments` map is camelCase (it's a sibling
+   * of `entities.answers` etc.), but `ZhihuCommentWire` is snake_case
+   * because it's carved from the `comment_v5` XHR response — that's
+   * where we actually read comments from. The SSR map is empty in every
+   * captured fixture (comments are lazy-loaded) and neither side of the
+   * codebase currently reads it, so we tolerate the casing mismatch on
+   * the type for now. If/when the SSR map starts shipping populated,
+   * introduce a separate `ZhihuCommentSsrWire` type and point this
+   * field at it.
+   */
   readonly comments: Readonly<Record<string, ZhihuCommentWire>>;
   readonly lineComments: Readonly<Record<string, ZhihuLineCommentWire>>;
   readonly articles: Readonly<Record<string, unknown>>;

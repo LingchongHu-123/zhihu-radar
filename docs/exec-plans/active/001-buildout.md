@@ -17,14 +17,14 @@ in the Decisions log at the bottom.
 ## Current layer status
 
 ```
-types/       ██████████ 100%  shapes carved against real fixture; signal.source field added (Phase C-revisit)
+types/       ██████████ 100%  shapes carved against real fixture; signal.source field added (Phase C-revisit); comment wire types added
 config/      ██████████ 100%  signals/thresholds/env all present; SIGNAL_KINDS_IN_ORDER + CONFIDENCE_WEIGHT_FLOOR added
-sources/     ██████░░░░  60%  fetchAnswersForQuestion done with tests; fetchCommentsForAnswer is still a throw stub (Phase E followup)
+sources/     ██████████ 100%  fetchAnswersForQuestion + fetchCommentsForAnswer both implemented with real-fixture tests
 validators/  ██████████ 100%  answer-quality predicate, three gates (Phase B)
 processors/  ██████████ 100%  signal-matcher + intent-analysis + Claude-discovered signal augmentation (Phase C + revisit, ADR 002 + 004)
 outputs/     ██████████ 100%  markdown-report renderer + committed expected.md fixture (Phase D)
 runtime/     ██░░░░░░░░  20%  placeholder cli.ts; no scrape/analyze/report commands yet (Phase E)
-tests/       ███████░░░  70%  57 tests across 5 files; runtime/ + Phase F still uncovered
+tests/       ████████░░  80%  all non-runtime layers covered; runtime/ + Phase F still uncovered
 ```
 
 (Status as of Phase D + Phase C-revisit shipped. Phase E and Phase F remain.)
@@ -200,6 +200,13 @@ with a closing note.
   sources/ landed. Order is sources → validators → processors → outputs
   because each downstream layer depends on the shape of the upstream's
   fixtures; building out-of-order means re-work.
+- 2026-04-23 — Phase A (including its comments followup) closed.
+  Answers fixture + comments-page1/last fixtures pinned under
+  `tests/fixtures/zhihu/`; `ZhihuAnswerWire` + `ZhihuCommentWire` +
+  envelope types carved from real samples; both `fetchAnswersForQuestion`
+  (SSR parse) and `fetchCommentsForAnswer` (`/api/v4/comment_v5`, the
+  one un-walled API path — see ADR 003 amendment) ship with 19 contract
+  tests. `pnpm check` + `pnpm test` green. Next entry point is Phase B.
 - 2026-04-23 — Phase F (draft generation) added. Product goal: convert
   the intent-radar's output into a lead-attraction content pipeline for
   study-abroad consulting. Kept as a new phase rather than folding into
@@ -207,3 +214,9 @@ with a closing note.
   pure-render-only. Content-safety rules (no impersonation, no numeric
   promises, no embedded contact info) live in draft-writer's system
   prompt so they're centrally reviewable rather than scattered.
+- 2026-04-24 — Phase A comments-followup line (`claude/affectionate-jackson`)
+  merged into main. Diverged before Phase B landed; kept a separate fork
+  so Phase B/C/D could ship on fetchAnswersForQuestion while the comments
+  endpoint was figured out. No code conflict at merge time; doc-status
+  conflict resolved by taking the post-Phase-D view with sources/ bumped
+  to 100%. Phase E can now assume real comment data is reachable.
