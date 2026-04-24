@@ -1,0 +1,13 @@
+# Normalize line endings across platforms.
+#
+# Why: Windows `core.autocrlf=true` was silently turning committed LF
+# files into CRLF on checkout, which broke byte-exact snapshot tests
+# (tests/fixtures/reports/sample-report.expected.md) and caused phantom
+# "modified" status on .claude/** on every new worktree. Pinning line
+# endings at the repo level removes both failure modes at once.
+#
+# `text=auto` lets git detect text vs binary; `eol=lf` forces LF in the
+# working tree regardless of core.autocrlf. Real binary files are
+# auto-detected and left alone.
+
+* text=auto eol=lf
