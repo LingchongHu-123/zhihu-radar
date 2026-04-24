@@ -36,6 +36,39 @@ a session, and **append to it** after resolving anything non-trivial.
 
 <!-- New entries go below this line, most recent first. -->
 
+### 2026-04-23 — comment_v5 is the one /api/v4 path that isn't walled
+**Context:** Phase A followup — fetchCommentsForAnswer needed a source.
+The SSR question page never hydrates `entities.comments` in practice
+(always `{}`), so comments have to come from some XHR endpoint. After
+the 40362 wall on the answer-list endpoint (entry below) the default
+expectation was that every `/api/v4/...` path would be similarly gated.
+**Symptom:** The obvious candidates were dead ends:
+- `GET /question/<qid>/answer/<aid>` (per-answer SSR page): 403 Forbidden
+  unauthenticated. Even authenticated the page's
+  `entities.comments` / `entities.lineComments` maps stayed empty —
+  comments are never hydrated in SSR, period.
+- `GET api.zhihu.com/comments_v5/answers/<aid>/root_comment` (mobile
+  host): 404 Not Found. That path doesn't live on the mobile API
+  host.
+**Root cause / finding:** `GET https://www.zhihu.com/api/v4/comment_v5/
+answers/<aid>/root_comment?order_by=score&limit=N&offset=` returns a
+well-formed `{ data: Comment[], paging: {...}, counts: {...} }`
+response with **zero** authentication and **zero** x-zse-96 signature.
+This is the one /api/v4 path that isn't behind the 40362 wall.
+Kept reproducible by `scripts/probe-comments.ts` + `scripts/capture-comments.ts`.
+**Fix:** `fetchCommentsForAnswer` calls `comment_v5`. Pagination
+follows `paging.next` until `paging.is_end === true` — **not** until
+`next` is absent: `next` is populated even on the last page (it loops
+back to the first page's URL), so a naïve "while (next)" loop runs
+forever. This is the one pagination invariant worth burning into
+muscle memory for this endpoint.
+**Keep in mind:** "the wall covers `/api/v4`" is too coarse a model.
+The wall covers specifically the answer-list and question-detail
+endpoints the web client hits constantly. Second-tier endpoints
+(comment_v5 here, probably others) ship unsigned. When a wall blocks
+you, probe adjacent paths for a few minutes before reverse-engineering
+the signature.
+
 ### 2026-04-22 — 知乎 /api/v4 is gated by x-zse-96; use SSR HTML instead
 **Context:** Phase A fixture capture. Script hit
 `GET https://www.zhihu.com/api/v4/questions/<id>/answers?...` with a valid
