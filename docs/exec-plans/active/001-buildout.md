@@ -23,11 +23,11 @@ sources/     ██████████ 100%  fetchAnswersForQuestion + fetc
 validators/  ██████████ 100%  answer-quality predicate, three gates (Phase B)
 processors/  ██████████ 100%  signal-matcher + intent-analysis + Claude-discovered signal augmentation (Phase C + revisit, ADR 002 + 004)
 outputs/     ██████████ 100%  markdown-report renderer + committed expected.md fixture (Phase D)
-runtime/     ██░░░░░░░░  20%  placeholder cli.ts; no scrape/analyze/report commands yet (Phase E)
-tests/       ████████░░  80%  all non-runtime layers covered; runtime/ + Phase F still uncovered
+runtime/     ██████████ 100%  scrape/analyze/report commands + CLI dispatcher + fetch-based Claude client (Phase E)
+tests/       █████████░  90%  90 tests across 9 files; Phase F still uncovered
 ```
 
-(Status as of Phase D + Phase C-revisit shipped. Phase E and Phase F remain.)
+(Status as of Phase E shipped. Phase F (draft generation) remains.)
 
 ## Build order (do not skip)
 
@@ -220,3 +220,18 @@ with a closing note.
   endpoint was figured out. No code conflict at merge time; doc-status
   conflict resolved by taking the post-Phase-D view with sources/ bumped
   to 100%. Phase E can now assume real comment data is reachable.
+- 2026-04-24 — Phase E shipped. `src/runtime/commands/{scrape,analyze,
+  report}.ts` + `cli.ts` dispatcher + `runtime/io/` support layer
+  (FsLike surface, node:fs adapter, path conventions, fetch-based
+  Claude client). Three CLI verbs (`pnpm dev scrape`, `analyze`,
+  `report`) with dependency injection throughout so tests run fully
+  in-memory. Deliberately no runtime deps added: Anthropic calls ride
+  a thin fetch wrapper rather than `@anthropic-ai/sdk` (CLAUDE.md
+  rule 4), since processors/intent-analysis's ClaudeRequest shape
+  already matches the HTTP API. Per-answer files in `data/processed/`
+  (not per-bundle) to make resume-on-crash and single-answer re-runs
+  trivial; intra-topic ranking uses confidence-weighted density per
+  ADR 004, inter-topic uses raw aggregated density per TopicRanking's
+  type contract — the weighting formula stays at report time so
+  tuning CONFIDENCE_WEIGHT_FLOOR doesn't require re-analyzing.
+  `pnpm check` + `pnpm test` green (90 tests across 9 files).
