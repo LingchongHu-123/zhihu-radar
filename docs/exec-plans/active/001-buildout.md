@@ -125,14 +125,69 @@ sibling layers):
   topic, calls `outputs/`, writes the daily report.
 - `src/runtime/cli.ts` — stays small; dispatches to the commands above.
 
-## Definition of "this plan is done"
+### Phase F — draft generation (content marketing loop)
 
-- Every layer status bar above is 100%.
-- A single `pnpm dev scrape … && pnpm dev analyze && pnpm dev report` run
-  produces a report file in `data/reports/`.
+**Goal:** turn each high-intent `TopicRanking` into a 知乎-style Chinese
+answer draft aimed at attracting study-abroad consulting leads. Output
+lands under `data/drafts/` as Markdown, to be human-reviewed before any
+publication. **This is a new layer's worth of work, not a tweak to
+outputs/** — it introduces a second Claude-backed processor and its own
+output renderer.
+
+Files to create:
+
+- `src/types/draft.ts` — `GeneratedDraft` shape: questionId the draft
+  answers, title, body (Markdown), open-ended CTA line, model id,
+  `generatedAt`.
+- `src/processors/draft-writer.ts` — Claude-backed. Input: one
+  `TopicRanking`. Output: `GeneratedDraft`. ADR 002 prompt-caching
+  rules apply: writing-style rules + output schema + few-shot examples
+  go before the `cache_control` breakpoint; topic-specific payload
+  (question title + top answers excerpt + matched signals) after.
+- `src/outputs/markdown-draft.ts` — deterministic renderer of
+  `GeneratedDraft` to a Markdown file under `data/drafts/`. Filename
+  convention: `draft-<questionId>-<YYYY-MM-DD>.md`.
+- `src/runtime/commands/draft.ts` — reads the day's `TopicReport` (or
+  `AnalyzedAnswer` batch) from `data/processed/`, picks top N topics
+  by density, calls `draft-writer` on each, writes results via
+  `markdown-draft`.
+
+**Content rules (encoded in draft-writer's system prompt, not in
+reviewer's head):**
+
+- Never impersonate a named third party; never invent credentials.
+- No quantitative promises ("保 offer", "100% 录取", 排名承诺).
+- Chinese, 知乎 register, 3–6 paragraphs, one open-ended CTA line at
+  the end (designed to invite a private message — **do not** emit
+  phone/WeChat/QQ; the human review step adds real contact info).
+- Write as an experienced advisor sharing perspective, not as a sales
+  pitch.
+
+**Caching structure (non-negotiable, ADR 002 applied):** the
+style-rules + few-shot block must be byte-identical across two draft
+runs with different topics. Test covers this, same shape as Phase C.
+
+**Definition of done:**
+
+- `pnpm dev draft` against a fixture `TopicReport` produces a readable
+  Markdown file in `data/drafts/`.
+- draft-writer round-trips a fixture topic to a mocked Claude call and
+  returns a valid `GeneratedDraft`; a separate test pins the stable
+  prefix bytes.
+- markdown-draft has a snapshot test that stays green on re-run.
 - `pnpm check` + `pnpm test` both green.
 
-When all three are true, move this file to `docs/exec-plans/completed/`
+## Definition of "this plan is done"
+
+- Every layer status bar above is 100% **including Phase F's new
+  files**.
+- A single `pnpm dev scrape … && pnpm dev analyze && pnpm dev report`
+  run produces a report file in `data/reports/`.
+- `pnpm dev draft` produces at least one Markdown draft in
+  `data/drafts/` from that same analyzed batch.
+- `pnpm check` + `pnpm test` both green.
+
+When all four are true, move this file to `docs/exec-plans/completed/`
 with a closing note.
 
 ## Decisions log
@@ -143,3 +198,10 @@ with a closing note.
   sources/ landed. Order is sources → validators → processors → outputs
   because each downstream layer depends on the shape of the upstream's
   fixtures; building out-of-order means re-work.
+- 2026-04-23 — Phase F (draft generation) added. Product goal: convert
+  the intent-radar's output into a lead-attraction content pipeline for
+  study-abroad consulting. Kept as a new phase rather than folding into
+  outputs/: the draft writer calls Claude, and outputs/ is deliberately
+  pure-render-only. Content-safety rules (no impersonation, no numeric
+  promises, no embedded contact info) live in draft-writer's system
+  prompt so they're centrally reviewable rather than scattered.
