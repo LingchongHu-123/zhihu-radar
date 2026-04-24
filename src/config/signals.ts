@@ -14,6 +14,21 @@
 import type { SignalKind } from "../types/signal.js";
 
 /**
+ * Canonical iteration order for SignalKind. Both signal matching and the
+ * cached prompt prefix in processors/ walk SIGNAL_KEYWORDS in this order
+ * — never via `Object.keys`. Per ADR 002, the cached prefix must serialize
+ * deterministically; relying on object-key insertion order would silently
+ * shuffle if someone reorganized this file. An explicit ordered array
+ * makes "the order changed" a code-review-visible diff.
+ */
+export const SIGNAL_KINDS_IN_ORDER: ReadonlyArray<SignalKind> = [
+  "contact-request",
+  "recommendation-request",
+  "payment-intent",
+  "dm-pull",
+];
+
+/**
  * Map from SignalKind to the set of phrases that count as that kind.
  * Readers match against answer bodies and comments case-sensitively — 知乎
  * text is mostly Chinese so case doesn't apply, and it lets us avoid
