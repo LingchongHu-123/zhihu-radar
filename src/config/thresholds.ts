@@ -48,6 +48,14 @@ export const MAX_TOPICS_PER_REPORT = 20;
 export const MIN_CHARS_FOR_DENSITY = 100;
 
 /**
+ * How many top-density topics get a draft per `draft` run. Each draft is a
+ * Claude call, so the cap exists to keep one accidental run from torching
+ * the budget. Tune up if you have a long-tail report you actually want
+ * draft coverage on.
+ */
+export const MAX_DRAFTS_PER_RUN = 5;
+
+/**
  * Floor weight for the confidence-weighted density formula
  *
  *   adjusted = rawDensity × (FLOOR + (1 - FLOOR) × intentConfidence)
