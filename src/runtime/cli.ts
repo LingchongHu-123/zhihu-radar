@@ -14,6 +14,7 @@ import {
   runAnalyze,
   type AnalyzeOptions,
 } from "./commands/analyze.js";
+import { runDraft } from "./commands/draft.js";
 import { runReport } from "./commands/report.js";
 import { runScrape, type ScrapeOptions } from "./commands/scrape.js";
 import { DEFAULT_DATA_DIR } from "./io/data-dir.js";
@@ -87,6 +88,8 @@ export async function main(
         return await handleAnalyze(rest, deps, logger);
       case "report":
         return await handleReport(rest, deps, logger);
+      case "draft":
+        return await handleDraft(rest, deps, logger);
       default:
         deps.stderr(`unknown command: ${command}`);
         printUsage(deps.stderr);
@@ -181,6 +184,39 @@ async function handleReport(
   return { exitCode: 0 };
 }
 
+async function handleDraft(
+  args: ReadonlyArray<string>,
+  deps: CliDeps,
+  logger: { info: (l: string) => void; warn: (l: string) => void },
+): Promise<CliResult> {
+  const parsed = parseArgs(
+    args,
+    new Set(["--data-dir", "--date", "--no-skip-existing"]),
+  );
+  const dataDir = parsed.flags["--data-dir"] ?? DEFAULT_DATA_DIR;
+  const now = deps.now();
+  const draftDate = parsed.flags["--date"] ?? isoDate(now);
+  const skipExisting = !parsed.flagPresent.has("--no-skip-existing");
+
+  const apiKey = getAnthropicApiKey();
+  const claudeClient = deps.makeClaudeClient(apiKey);
+
+  const result = await runDraft({
+    dataDir,
+    draftDate,
+    now,
+    claudeClient,
+    skipExisting,
+    fs: deps.fs,
+    logger,
+  });
+
+  deps.stdout(
+    `draft: ${result.drafted} drafted, ${result.skippedExisting} skipped-existing, ${result.failed} failed (of ${result.topicsConsidered} topics)`,
+  );
+  return { exitCode: result.failed === 0 ? 0 : 1 };
+}
+
 // ---------- tiny arg parser ----------
 
 type ParsedArgs = {
@@ -244,6 +280,8 @@ function printUsage(out: (line: string) => void): void {
   out("      Validate + Claude-analyze every raw answer, write per-answer files.");
   out("  report [--data-dir <path>] [--date YYYY-MM-DD]");
   out("      Aggregate processed answers into a dated Markdown report.");
+  out("  draft [--data-dir <path>] [--date YYYY-MM-DD] [--no-skip-existing]");
+  out("      Generate Markdown draft answers for the top-density topics.");
 }
 
 // ---------- top-level ----------

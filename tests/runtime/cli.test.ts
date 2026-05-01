@@ -215,4 +215,139 @@ describe("main (cli dispatcher)", () => {
       expect(files.has("data/reports/2026-04-24.md")).toBe(true);
     });
   });
+
+  describe("draft", () => {
+    it("reads ANTHROPIC_API_KEY from env, drafts top topics, writes Markdown drafts", async () => {
+      // Seed processed/ with one analyzed answer that has signals so the
+      // density is non-zero and the topic is rankable.
+      const seedAnalyzed = {
+        answer: {
+          id: "a1",
+          questionId: "q-draft-1",
+          questionTitle: "Draft topic title",
+          body: "x".repeat(500),
+          authorName: "anon",
+          upvotes: 50,
+          commentCount: 0,
+          createdAt: "2026-04-01T00:00:00.000Z",
+          url: "https://www.zhihu.com/question/q-draft-1/answer/a1",
+          scrapedAt: FIXED_NOW.toISOString(),
+        },
+        comments: [],
+        signals: [
+          {
+            kind: "contact-request",
+            keyword: "私信我",
+            location: { kind: "answer-body", answerId: "a1" },
+            spanStart: 0,
+            spanEnd: 3,
+            source: "keyword",
+          },
+        ],
+        signalsPer1kChars: 2,
+        intentSummary: "想私信",
+        intentConfidence: 0.7,
+        analyzedAt: FIXED_NOW.toISOString(),
+      };
+      const { fs, files } = memFs({
+        "data/processed/q-draft-1-a1.json": JSON.stringify(seedAnalyzed),
+      });
+      process.env["ANTHROPIC_API_KEY"] = "test-key";
+
+      // Override Claude to return a valid draft JSON.
+      const draftJson = JSON.stringify({
+        title: "测试草稿",
+        body: "段落一。\n\n段落二。",
+        ctaLine: "想聊可以私信。",
+      });
+      const out: string[] = [];
+      const err: string[] = [];
+      const deps: CliDeps = {
+        fs,
+        now: () => FIXED_NOW,
+        stdout: (l) => out.push(l),
+        stderr: (l) => err.push(l),
+        scrapeFetchers: {
+          fetchAnswers: async () => [],
+          fetchComments: async () => [],
+        },
+        makeClaudeClient: () => async () => ({
+          content: [{ type: "text", text: draftJson }],
+        }),
+      };
+
+      const r = await main(["draft"], deps);
+
+      expect(r.exitCode).toBe(0);
+      expect(files.has("data/drafts/draft-q-draft-1-2026-04-24.md")).toBe(true);
+    });
+
+    it("respects --date for the filename", async () => {
+      const seedAnalyzed = {
+        answer: {
+          id: "a1",
+          questionId: "qd",
+          questionTitle: "T",
+          body: "x".repeat(500),
+          authorName: "anon",
+          upvotes: 50,
+          commentCount: 0,
+          createdAt: "2026-04-01T00:00:00.000Z",
+          url: "https://www.zhihu.com/question/qd/answer/a1",
+          scrapedAt: FIXED_NOW.toISOString(),
+        },
+        comments: [],
+        signals: [
+          {
+            kind: "contact-request",
+            keyword: "私信我",
+            location: { kind: "answer-body", answerId: "a1" },
+            spanStart: 0,
+            spanEnd: 3,
+            source: "keyword",
+          },
+        ],
+        signalsPer1kChars: 2,
+        intentSummary: "x",
+        intentConfidence: 0.5,
+        analyzedAt: FIXED_NOW.toISOString(),
+      };
+      const { fs, files } = memFs({
+        "data/processed/qd-a1.json": JSON.stringify(seedAnalyzed),
+      });
+      process.env["ANTHROPIC_API_KEY"] = "test-key";
+
+      const draftJson = JSON.stringify({
+        title: "T",
+        body: "B。",
+        ctaLine: "C。",
+      });
+      const out: string[] = [];
+      const err: string[] = [];
+      const deps: CliDeps = {
+        fs,
+        now: () => FIXED_NOW,
+        stdout: (l) => out.push(l),
+        stderr: (l) => err.push(l),
+        scrapeFetchers: {
+          fetchAnswers: async () => [],
+          fetchComments: async () => [],
+        },
+        makeClaudeClient: () => async () => ({
+          content: [{ type: "text", text: draftJson }],
+        }),
+      };
+
+      const r = await main(["draft", "--date", "2026-05-01"], deps);
+      expect(r.exitCode).toBe(0);
+      expect(files.has("data/drafts/draft-qd-2026-05-01.md")).toBe(true);
+    });
+
+    it("fails loudly when ANTHROPIC_API_KEY is unset", async () => {
+      const { deps, err } = makeDeps();
+      const r = await main(["draft"], deps);
+      expect(r.exitCode).toBe(1);
+      expect(err.some((l) => l.includes("ANTHROPIC_API_KEY"))).toBe(true);
+    });
+  });
 });
