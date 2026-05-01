@@ -1,7 +1,8 @@
 # Exec Plan 001 — Buildout of the remaining layers
 
-**Status:** Active
+**Status:** Done — pending move to `docs/exec-plans/completed/`
 **Opened:** 2026-04-22
+**Closed:** 2026-05-01
 **Owner:** any agent that picks this up in a future session
 
 ## Why this file exists
@@ -17,17 +18,17 @@ in the Decisions log at the bottom.
 ## Current layer status
 
 ```
-types/       ██████████ 100%  shapes carved against real fixture; signal.source field added (Phase C-revisit); comment wire types added
-config/      ██████████ 100%  signals/thresholds/env all present; SIGNAL_KINDS_IN_ORDER + CONFIDENCE_WEIGHT_FLOOR added
+types/       ██████████ 100%  shapes carved against real fixture; signal.source + GeneratedDraft added (Phase C-revisit + F)
+config/      ██████████ 100%  signals/thresholds/env all present; SIGNAL_KINDS_IN_ORDER + CONFIDENCE_WEIGHT_FLOOR + MAX_DRAFTS_PER_RUN added
 sources/     ██████████ 100%  fetchAnswersForQuestion + fetchCommentsForAnswer both implemented with real-fixture tests
 validators/  ██████████ 100%  answer-quality predicate, three gates (Phase B)
-processors/  ██████████ 100%  signal-matcher + intent-analysis + Claude-discovered signal augmentation (Phase C + revisit, ADR 002 + 004)
-outputs/     ██████████ 100%  markdown-report renderer + committed expected.md fixture (Phase D)
-runtime/     ██████████ 100%  scrape/analyze/report commands + CLI dispatcher + fetch-based Claude client (Phase E)
-tests/       █████████░  90%  90 tests across 9 files; Phase F still uncovered
+processors/  ██████████ 100%  signal-matcher + intent-analysis + draft-writer; ADR 002 cache-prefix invariant pinned across both LLM processors (Phase C + F)
+outputs/     ██████████ 100%  markdown-report + markdown-draft renderers, both with committed expected.md fixtures (Phase D + F)
+runtime/     ██████████ 100%  scrape/analyze/report/draft commands + CLI dispatcher + fetch-based Claude client (Phase E + F)
+tests/       ██████████ 100%  118 tests across 12 files; every layer covered including Phase F
 ```
 
-(Status as of Phase E shipped. Phase F (draft generation) remains.)
+(Status as of Phase F shipped — plan complete.)
 
 ## Build order (do not skip)
 
@@ -235,3 +236,23 @@ with a closing note.
   type contract — the weighting formula stays at report time so
   tuning CONFIDENCE_WEIGHT_FLOOR doesn't require re-analyzing.
   `pnpm check` + `pnpm test` green (90 tests across 9 files).
+- 2026-05-01 — Phase F (draft generation) shipped, closes the plan.
+  Files added: `src/types/draft.ts` (GeneratedDraft),
+  `src/processors/draft-writer.ts` (Claude-backed, ADR 002 cache-friendly
+  prefix with style rules + few-shot, content-safety rules in the
+  system prompt — no impersonation, no quantitative promises, no
+  embedded contact info), `src/outputs/markdown-draft.ts` (pure
+  renderer with the CTA on its own block under a horizontal rule so
+  reviewers can swap real contact info in without touching the body),
+  `src/runtime/commands/draft.ts` (re-aggregates rankings via
+  buildRankings rather than reading the rendered report — the JSONs
+  in processed/ are the source of truth, not the lossy Markdown),
+  CLI dispatcher wired with new `draft` verb. New test files at
+  tests/processors/draft-writer.test.ts (8 tests including the cache-
+  prefix byte-identity invariant), tests/outputs/markdown-draft.test.ts
+  (6 tests + committed fixture sample-draft.expected.md), tests/runtime/
+  commands/draft.test.ts (5 tests covering top-N selection, skip-
+  existing, partial-failure resilience), plus 3 new cli dispatcher
+  tests. Per-topic file granularity (one .md per topic per date)
+  matches analyze.ts's resume-on-crash story: `rm` one bad draft and
+  re-run. `pnpm check` + `pnpm test` green (118 tests across 12 files).
