@@ -36,6 +36,104 @@ a session, and **append to it** after resolving anything non-trivial.
 
 <!-- New entries go below this line, most recent first. -->
 
+### 2026-05-01 — `MAX_ANSWER_AGE_DAYS=365` rejects ~80% of evergreen 知乎 content
+**Context:** First real end-to-end run, Phase F shipped. Scraped
+question 52691102 (a 2016 study-abroad meta question), got 5 answers;
+analyze rejected 4/5 by quality gate, all on age.
+**Symptom:** `analyze: skipped <id> (quality: age N days > MAX_ANSWER_AGE_DAYS (365))`
+with N ∈ {713, 1247, 3153, 3319}. The user's own URL pointed at a 713-day-old
+answer; that answer had 557 upvotes and 70 comments — exactly the kind of
+high-intent thread the product is supposed to surface.
+**Root cause:** the threshold was a guess. The reasoning in
+`config/thresholds.ts` ("buying intent expressed two years ago is not a
+signal that someone is trying to buy *now*") sounds correct but is wrong
+for this content type — 知乎's evergreen-ranking surfaces years-old
+answers that still attract fresh comments today. The unit-test layer
+can't catch this; the constant only fails against real data.
+**Fix:** none yet. **Do NOT silently bump the constant** — the right
+move is a calibration step (see Retro 001 §B): `pnpm dev calibrate` that
+prints age/upvote/length histograms over `data/raw/`, then a human picks
+the cutoff. Bumping to 1825 days "to make it work" without measurement
+just moves the goalpost.
+**Keep in mind:** any threshold that rejects rows is a candidate for
+this same trap. `MIN_UPVOTES_FOR_ANALYSIS`, `MIN_BODY_CHARS_FOR_ANALYSIS`,
+`MIN_CHARS_FOR_DENSITY` were also picked by feel — none have been
+validated against a real distribution.
+
+### 2026-05-01 — Anthropic `credit balance is too low` only surfaces mid-batch
+**Context:** Same first-real-E2E run. After quality gate filtered 4/5
+answers, analyze fired one Claude call for the surviving answer.
+**Symptom:** `Anthropic /v1/messages returned 400: {"type":"error","error":
+{"type":"invalid_request_error","message":"Your credit balance is too
+low to access the Anthropic API. Please go to Plans & Billing to upgrade
+or purchase credits."}}`. analyze counted it as `failed: 1` and exited.
+For a multi-answer batch this would mean "spent budget on partial work,
+no useful artifact at the end."
+**Root cause:** no pre-flight budget check. The CLI happily starts an
+N-call batch without verifying account state.
+**Fix:** none in code yet. Workaround: top up the Anthropic account
+before any analyze/draft run. **Real fix** is a `pnpm dev plan` command
+that prints "would call Claude N times for ~\$X, press enter to confirm"
+before firing — see Retro 001 §B.
+**Keep in mind:** error surfaces with 400 status, NOT 402. Don't string-
+match on status code; match on error.message containing "credit balance"
+if you ever programmatic-handle it.
+
+### 2026-05-01 — `.env` written by Windows 记事本 silently becomes `.env.txt`
+**Context:** First-time setup of `ANTHROPIC_API_KEY`. User created
+`.env` via Notepad as instructed.
+**Symptom:** `pnpm dev analyze` errored with `ANTHROPIC_API_KEY is not
+set`. `ls -la` showed `.env.txt` in the worktree root, no `.env`.
+**Root cause:** Windows Notepad defaults to "Save as type: Text Documents
+(*.txt)" and silently appends `.txt` even when the user typed `.env` as
+the filename. The "Hide extensions for known file types" setting (default
+on) makes it look correct in Explorer.
+**Fix:** `mv .env.txt .env`. **Long term:** `docs/setup.md` should warn
+explicitly and recommend either VS Code / Notepad++ or a one-line shell
+write: `echo 'KEY=value' > .env` (note: must run in the directory you
+want the file to land in, with single quotes to preserve `$` and `;`).
+**Keep in mind:** also relevant for `.gitignore`, `.npmrc`, `.eslintrc`,
+any dotfile created via Notepad on Windows.
+
+### 2026-05-01 — `env.ts` error message says "Add it to .env" but project does NOT auto-load .env
+**Context:** Same setup attempt. After `mv .env.txt .env` the value still
+wasn't visible to `process.env`.
+**Symptom:** Variable defined in `.env` (verified by `grep -c KEY .env`),
+but `pnpm dev analyze` still threw `ANTHROPIC_API_KEY is not set`.
+**Root cause:** `src/config/env.ts:22` says `"ANTHROPIC_API_KEY is not
+set. Add it to .env or export it in the shell..."` — but no module in
+this project imports `dotenv`. The error message is aspirational, not
+factual. `process.env` only sees what the shell exports before the
+process starts.
+**Fix (this session):** inline-source per command:
+`set -a && source .env && set +a && pnpm dev <verb>`. Works for one-off
+runs. **Real fix:** EITHER add a minimal dotenv loader (would touch
+CLAUDE.md rule 4 — needs an ADR for the new runtime dep), OR change the
+error message to drop the .env reference and say "export it before
+running."
+**Keep in mind:** error-message accuracy is part of the API. A lying
+message costs the next user 15 minutes of confused setup.
+
+### 2026-05-01 — 知乎 returns 403 to anonymous requests; cookie required
+**Context:** First real `pnpm dev scrape <qid>` attempt.
+**Symptom:** `scrape: question <qid> failed: zhihu-radar: GET
+https://www.zhihu.com/question/<qid> -> 403 Forbidden`. Followed by a
+Windows-specific `Assertion failed: !(handle->flags & UV_HANDLE_CLOSING)
+... src\\win\\async.c, line 76` exit assertion (harmless noise on
+process exit, see prior agent-learnings entry on Windows uv).
+**Root cause:** 知乎 wall on un-authenticated SSR document fetches.
+Logged-in browsers attach a long cookie string (~1.5 KB) including
+`z_c0`, `_xsrf`, etc.; without it the WAF returns 403.
+**Fix:** set `ZHIHU_COOKIE` in `.env`. Cookie acquisition: Chrome
+DevTools → Network tab → refresh page → click the top
+`zhihu.com` document request → Headers → Request Headers → copy the
+entire `cookie:` value (single-quote it in `.env` to preserve `;` and
+`=`). Stays valid for weeks; refresh when 403s return.
+**Keep in mind:** the comment-fetch endpoint
+(`/api/v4/comment_v5/...`, see ADR 003) accepts the same cookie. If
+scraping starts working but comments are sparse / 403, the cookie
+expired — re-grab.
+
 ### 2026-04-24 — Windows CRLF silently breaks byte-exact snapshot tests
 **Context:** Phase E prep — `pnpm check` was green but `pnpm test` went
 red on `tests/outputs/markdown-report.test.ts > matches the bytes in
